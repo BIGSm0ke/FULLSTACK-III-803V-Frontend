@@ -36,3 +36,46 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+
+.App-container {
+  background-color: #ffffff; /* Fondo oscuro similar al de la imagen */
+  min-height: 100vh;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  padding: 20px;
+  background-color: #0b1e33;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo base de los botones (basado en la imagen) */
+.nav-button {
+  text-decoration: none;
+  color: #ffffff;
+  border: 1px solid #7cb3d9; /* Borde celeste claro */
+  padding: 8px 20px;
+  border-radius: 12px; /* Redondeado exacto */
+  font-size: 17px;
+  background-color: transparent;
+  transition: all 0.3s ease; /* Suaviza la animación del hover */
+  display: inline-block;
+}
+
+/* Efecto Hover solicitado */
+.nav-button:hover {
+  background-color: rgba(124, 179, 217, 0.15); /* Un brillo sutil de fondo */
+  border-color: #ffffff; /* El borde se aclara */
+  box-shadow: 0 0 10px rgba(124, 179, 217, 0.3); /* Brillo exterior */
+  transform: translateY(-2px); /* Pequeño salto hacia arriba */
+}

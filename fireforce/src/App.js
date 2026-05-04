@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import MonitoringPage from './pages/monitoreo'; 
+import './App.css'; // Importamos los estilos
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App-container">
+        {/* Barra de navegación */}
+        <nav className="navbar">
+          <ul className="nav-list">
+            <li>
+              <Link to="/" className="nav-button">Inicio</Link>
+            </li>
+            <li>
+              <Link to="/monitoreo" className="nav-button">Mapa de Monitoreo</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Configuración de las rutas */}
+        <div className="container" style={{ padding: '20px' }}>
+          <Routes>
+            <Route path="/" element={<h1>Bienvenido a Municipalidad Valle del Sol</h1>} />
+            
+            {/* RUTA SOLICITADA PARA MONITOREO */}
+            <Route path="/monitoreo" element={<MonitoringPage />} />
+            
+            {/* Espacio para MS Reportes o MS Alertas */}
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
