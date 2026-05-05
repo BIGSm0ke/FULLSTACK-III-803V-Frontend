@@ -4,6 +4,7 @@ import MonitoringPage from './components/pages/monitoreo';
 import Home from './components/pages/home';
 import Footer from './components/footer';
 import Reportes from './components/pages/reportes';
+import Alertas from './components/pages/alertas';
 import Login from './components/pages/login';
 import MiCuenta from './components/pages/micuenta';
 import { ReportProvider } from './context/ReportContext';
@@ -88,6 +89,14 @@ const Layout = () => {
                         )}
                         <li>
                             <button
+                                className={`sidebar-item ${location.pathname === '/alertas' ? 'active' : ''}`}
+                                onClick={() => handleNav('/alertas')}
+                            >
+                                Alertas
+                            </button>
+                        </li>
+                        <li>
+                            <button
                                 className={`sidebar-item ${location.pathname === '/reportes' ? 'active' : ''}`}
                                 onClick={() => handleNav('/reportes')}
                             >
@@ -117,6 +126,7 @@ const Layout = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/monitoreo" element={<AdminRoute><MonitoringPage /></AdminRoute>} />
+                    <Route path="/alertas" element={<Alertas />} />
                     <Route path="/reportes" element={<Reportes />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/micuenta" element={<MiCuenta />} />
