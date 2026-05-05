@@ -1,0 +1,323 @@
+.report-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background-color: #ffffff;
+}
+
+.report-container h1 {
+    color: #0b1e33;
+    font-size: 2rem;
+    border-bottom: 3px solid #fa0000;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.stepper::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background-color: #ddd;
+    z-index: 0;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ddd;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background-color: #0b1e33;
+    color: #ffffff;
+}
+
+.step-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.step.active .step-label {
+    color: #0b1e33;
+    font-weight: bold;
+}
+
+.report-form {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+.form-step h2 {
+    color: #0b1e33;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.section-label {
+    display: block;
+    margin: 20px 0 10px 0;
+    color: #333;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.section-label:first-of-type {
+    margin-top: 0;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.selection-card {
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 18px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.selection-card:hover {
+    border-color: #0b1e33;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selection-card.selected {
+    border-color: #fa0000;
+    background-color: rgba(250, 0, 0, 0.08);
+    box-shadow: 0 2px 12px rgba(250, 0, 0, 0.2);
+}
+
+.card-icon {
+    font-size: 2rem;
+}
+
+.card-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.severity-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.severity-card {
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.severity-card:hover {
+    border-color: #333;
+}
+
+.severity-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.card-sub {
+    font-size: 0.75rem;
+    color: #666;
+    text-align: center;
+}
+
+.btn-group-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.hint {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.report-map {
+    width: 100%;
+    height: 350px;
+    border-radius: 8px;
+    border: 2px solid #fa0000;
+    margin-bottom: 20px;
+    z-index: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0b1e33;
+    box-shadow: 0 0 5px rgba(11, 30, 51, 0.2);
+}
+
+.btn-group {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.btn-next,
+.btn-prev,
+.btn-submit {
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    border: none;
+}
+
+.btn-next,
+.btn-submit {
+    background-color: #0b1e33;
+    color: #ffffff;
+    border: 1px solid #7cb3d9;
+}
+
+.btn-next:hover,
+.btn-submit:hover {
+    background-color: #1a3a5c;
+    box-shadow: 0 0 10px rgba(11, 30, 51, 0.3);
+}
+
+.btn-next:disabled,
+.btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-prev {
+    background-color: #ffffff;
+    color: #0b1e33;
+    border: 1px solid #0b1e33;
+}
+
+.btn-prev:hover {
+    background-color: #f0f0f0;
+}
+
+.review {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.review h3 {
+    color: #fa0000;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.review h3:first-child {
+    margin-top: 0;
+}
+
+.review p {
+    margin: 6px 0;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .report-container {
+        margin: 20px auto;
+    }
+
+    .report-form {
+        padding: 15px;
+    }
+
+    .stepper {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .stepper::before {
+        display: none;
+    }
+
+    .step {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+}
