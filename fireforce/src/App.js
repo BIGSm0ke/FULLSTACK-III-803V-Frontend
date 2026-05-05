@@ -4,17 +4,33 @@ import MonitoringPage from './components/pages/monitoreo';
 import Home from './components/pages/home';
 import Footer from './components/footer';
 import Reportes from './components/pages/reportes';
+import Login from './components/pages/login';
+import MiCuenta from './components/pages/micuenta';
 import { ReportProvider } from './context/ReportContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import CustomLogo from './assets/ff.jpg';
 import './App.css';
+import './styles/sidebar.css';
 
 const Layout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    const { user, isAuthenticated, logout } = useAuth();
 
     const handleNav = (path) => {
         navigate(path);
+        setSidebarOpen(false);
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+        setSidebarOpen(false);
+    };
+
+    const handleProfileClick = () => {
+        navigate('/micuenta');
         setSidebarOpen(false);
     };
 
@@ -31,6 +47,18 @@ const Layout = () => {
             {sidebarOpen && (
                 <div className="sidebar">
                     <button className="sidebar-close" onClick={() => setSidebarOpen(false)}>×</button>
+                    {isAuthenticated && user && (
+                        <div className="sidebar-profile" onClick={handleProfileClick}>
+                            <div className="sidebar-photo">
+                                {user.photo ? (
+                                    <img src={user.photo} alt={user.name} />
+                                ) : (
+                                    <span>{user.name?.charAt(0).toUpperCase()}</span>
+                                )}
+                            </div>
+                            <span className="sidebar-username">{user.name}</span>
+                        </div>
+                    )}
                     <ul className="sidebar-menu">
                         <li>
                             <button
@@ -56,6 +84,21 @@ const Layout = () => {
                                 Reportes
                             </button>
                         </li>
+                        <li className="sidebar-divider"></li>
+                        <li>
+                            {isAuthenticated ? (
+                                <button className="sidebar-item sidebar-logout" onClick={handleLogout}>
+                                    Cerrar Sesión
+                                </button>
+                            ) : (
+                                <button
+                                    className={`sidebar-item ${location.pathname === '/login' ? 'active' : ''}`}
+                                    onClick={() => handleNav('/login')}
+                                >
+                                    Iniciar Sesión
+                                </button>
+                            )}
+                        </li>
                     </ul>
                 </div>
             )}
@@ -65,6 +108,8 @@ const Layout = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/monitoreo" element={<MonitoringPage />} />
                     <Route path="/reportes" element={<Reportes />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/micuenta" element={<MiCuenta />} />
                 </Routes>
             </div>
             <Footer />
@@ -75,9 +120,11 @@ const Layout = () => {
 function App() {
     return (
         <Router>
-            <ReportProvider>
-                <Layout />
-            </ReportProvider>
+            <AuthProvider>
+                <ReportProvider>
+                    <Layout />
+                </ReportProvider>
+            </AuthProvider>
         </Router>
     );
 }

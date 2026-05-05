@@ -1,0 +1,119 @@
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 280px;
+  height: calc(100vh - 60px);
+  background-color: #0b1e33;
+  border-right: 3px solid #fa0000;
+  z-index: 1000;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sidebar-close:hover {
+  color: #fa0000;
+}
+
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 25px;
+  background-color: #0a1a2e;
+  border-bottom: 2px solid rgba(250, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-profile:hover {
+  background-color: #132d47;
+}
+
+.sidebar-photo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #fa0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidebar-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar-photo span {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.sidebar-username {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.sidebar-item {
+  color: #ffffff;
+  display: block;
+  padding: 15px 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(250, 0, 0, 0.3);
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+}
+
+.sidebar-item:hover,
+.sidebar-item.active {
+  background-color: rgba(124, 179, 217, 0.15);
+  border-left: 4px solid #fa0000;
+  padding-left: 21px;
+}
+
+.sidebar-logout {
+  color: #fa0000;
+  font-weight: bold;
+}
+
+.sidebar-logout:hover {
+  background-color: rgba(250, 0, 0, 0.1);
+  border-left: 4px solid #ffffff;
+  padding-left: 21px;
+}

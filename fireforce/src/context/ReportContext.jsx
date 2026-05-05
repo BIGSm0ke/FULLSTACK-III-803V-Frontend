@@ -14,12 +14,22 @@ export const ReportProvider = ({ children }) => {
         localStorage.setItem('fireReports', JSON.stringify(reports));
     }, [reports]);
 
-    const addReport = (report) => {
-        setReports(prev => [...prev, { ...report, id: Date.now(), timestamp: new Date().toISOString(), fireType: report.fireType, severity: report.severity, visible: report.visible, address: report.address, lat: report.lat, lng: report.lng, name: report.name, phone: report.phone }]);
+    const addReport = (report, userId) => {
+        const newReport = { 
+            ...report, 
+            id: Date.now(), 
+            timestamp: new Date().toISOString(),
+            userId: userId || null 
+        };
+        setReports(prev => [...prev, newReport]);
+    };
+
+    const getUserReports = (userId) => {
+        return reports.filter(r => r.userId === userId);
     };
 
     return (
-        <ReportContext.Provider value={{ reports, addReport }}>
+        <ReportContext.Provider value={{ reports, addReport, getUserReports }}>
             {children}
         </ReportContext.Provider>
     );

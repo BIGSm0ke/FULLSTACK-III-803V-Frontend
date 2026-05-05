@@ -1,0 +1,110 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 63px - 200px);
+    padding: 40px 20px;
+    background-color: #ffffff;
+}
+
+.auth-box {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 420px;
+    border-top: 4px solid #fa0000;
+}
+
+.auth-box h1 {
+    color: #0b1e33;
+    font-size: 2rem;
+    margin: 0 0 30px 0;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #0b1e33;
+    box-shadow: 0 0 6px rgba(11, 30, 51, 0.2);
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 14px;
+    background-color: #0b1e33;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-auth:hover {
+    background-color: #1a3a5c;
+    box-shadow: 0 4px 12px rgba(11, 30, 51, 0.3);
+}
+
+.auth-toggle {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: #fa0000;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 6px;
+    padding: 0;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: color 0.2s ease;
+}
+
+.btn-link:hover {
+    color: #cc0000;
+    text-decoration: underline;
+}
+
+.sidebar-divider {
+    margin: 10px 20px;
+    border-top: 1px solid rgba(250, 0, 0, 0.4);
+    list-style: none;
+}
+
+@media (max-width: 480px) {
+    .auth-box {
+        padding: 25px 20px;
+    }
+}
