@@ -4,67 +4,80 @@
     background-color: #ffffff;
 }
 
-.home-hero {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.hero-content {
-    flex: 1;
-}
-
-.hero-content h1 {
-    color: #0b1e33;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    border-left: 4px solid #fa0000;
-    padding-left: 20px;
-}
-
-.hero-content p {
-    color: #333333;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 15px;
-}
-
-.hero-image {
-    flex: 1;
+.home-grid {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
 }
 
-.hero-image img {
-    width: 100%;
-    max-width: 500px;
+.home-block {
+    flex: 1;
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    border: 3px solid #fa0000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-top: 3px solid #fa0000;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-info {
+    background-color: #f8f9fa;
+}
+
+.home-info h1 {
+    color: #0b1e33;
+    font-size: 2rem;
+    margin: 0 0 20px 0;
+    border-bottom: 2px solid #fa0000;
+    padding-bottom: 10px;
+}
+
+.home-info p {
+    color: #333333;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 10px 0;
+}
+
+.home-map-block {
+    background-color: #f8f9fa;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .home-map {
     width: 100%;
-    max-width: 500px;
     height: 350px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    border: 3px solid #fa0000;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 0;
 }
 
-.image-caption {
-    margin-top: 10px;
-    color: #666666;
-    font-style: italic;
-    font-size: 0.9rem;
+.try-map-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    background-color: #0b1e33;
+    color: #ffffff;
+    border: 2px solid #7cb3d9;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.try-map-btn:hover {
+    background-color: rgba(124, 179, 217, 0.15);
+    border-color: #fa0000;
+    box-shadow: 0 0 10px rgba(250, 0, 0, 0.3);
+    transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
-    .home-hero {
+    .home-grid {
         flex-direction: column;
     }
 
@@ -72,7 +85,11 @@
         padding: 20px;
     }
 
-    .hero-content h1 {
-        font-size: 1.8rem;
+    .home-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .home-map {
+        height: 250px;
     }
 }
