@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from
 import MonitoringPage from './components/pages/monitoreo';
 import Home from './components/pages/home';
 import Footer from './components/footer';
+import Reportes from './components/pages/reportes';
+import { ReportProvider } from './context/ReportContext';
+import CustomLogo from './assets/ff.jpg';
 import './App.css';
 
 const Layout = () => {
@@ -20,7 +23,7 @@ const Layout = () => {
             <nav className="navbar">
                 <div className="navbar-left">
                     <button className="navbar-logo-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
-                        <img src="/logo192.png" alt="Logo" className="navbar-logo" />
+                        <img src={CustomLogo} alt="Logo" className="navbar-logo" />
                     </button>
                 </div>
             </nav>
@@ -45,6 +48,14 @@ const Layout = () => {
                                 Monitoreo
                             </button>
                         </li>
+                        <li>
+                            <button
+                                className={`sidebar-item ${location.pathname === '/reportes' ? 'active' : ''}`}
+                                onClick={() => handleNav('/reportes')}
+                            >
+                                Reportes
+                            </button>
+                        </li>
                     </ul>
                 </div>
             )}
@@ -53,6 +64,7 @@ const Layout = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/monitoreo" element={<MonitoringPage />} />
+                    <Route path="/reportes" element={<Reportes />} />
                 </Routes>
             </div>
             <Footer />
@@ -63,7 +75,9 @@ const Layout = () => {
 function App() {
     return (
         <Router>
-            <Layout />
+            <ReportProvider>
+                <Layout />
+            </ReportProvider>
         </Router>
     );
 }
