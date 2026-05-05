@@ -1,29 +1,26 @@
-/* Contenedor principal del módulo de monitoreo */
 .monitoring-container {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: calc(100vh - 63px);
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 .monitoring-container h2 {
     color: #2c3e50;
-    border-bottom: 2px solid #fa0000; /* Color rojo alusivo a incendios */
+    border-bottom: 2px solid #fa0000;
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
 }
 
-/* Contenedor del Mapa (Leaflet usa esta clase) */
 .map-wrapper {
-    height: 600px;
+    height: 100%;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border: 1px solid #ddd;
+    box-shadow: none;
+    border: none;
 }
 
-/* Estilos para los Popups del mapa */
 .leaflet-popup-content-wrapper {
     border-radius: 8px;
     padding: 5px;
@@ -35,25 +32,22 @@
     margin-bottom: 5px;
 }
 
-/* Indicador de carga */
 .loading-overlay {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    height: 100%;
     background-color: #f9f9f9;
-    border-radius: 12px;
     font-style: italic;
     color: #7f8c8d;
 }
 
-/* Responsividad para móviles */
 @media (max-width: 768px) {
     .monitoring-container {
-        padding: 1rem;
+        padding: 0;
     }
     
     .map-wrapper {
-        height: 400px;
+        height: 100%;
     }
 }

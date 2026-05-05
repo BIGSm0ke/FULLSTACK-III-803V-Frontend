@@ -37,18 +37,36 @@
   }
 }
 
-/* App.css */
-
 .App-container {
-  background-color: #ffffff; /* Fondo oscuro similar al de la imagen */
+  background-color: #ffffff;
   min-height: 100vh;
-  color: white;
   font-family: Arial, sans-serif;
+  position: relative;
 }
 
 .navbar {
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
   background-color: #0b1e33;
+  border-bottom: 3px solid #fa0000;
+  height: 60px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 40px;
+  width: auto;
+}
+
+.navbar-center {
+  display: flex;
+  gap: 15px;
 }
 
 .nav-list {
@@ -59,23 +77,91 @@
   padding: 0;
 }
 
-/* Estilo base de los botones (basado en la imagen) */
 .nav-button {
   text-decoration: none;
   color: #ffffff;
-  border: 1px solid #7cb3d9; /* Borde celeste claro */
+  border: 1px solid #7cb3d9;
   padding: 8px 20px;
-  border-radius: 12px; /* Redondeado exacto */
+  border-radius: 12px;
   font-size: 17px;
   background-color: transparent;
-  transition: all 0.3s ease; /* Suaviza la animación del hover */
+  transition: all 0.3s ease;
   display: inline-block;
+  cursor: pointer;
+  font-family: inherit;
 }
 
-/* Efecto Hover solicitado */
 .nav-button:hover {
-  background-color: rgba(124, 179, 217, 0.15); /* Un brillo sutil de fondo */
-  border-color: #ffffff; /* El borde se aclara */
-  box-shadow: 0 0 10px rgba(124, 179, 217, 0.3); /* Brillo exterior */
-  transform: translateY(-2px); /* Pequeño salto hacia arriba */
+  background-color: rgba(124, 179, 217, 0.15);
+  border-color: #ffffff;
+  box-shadow: 0 0 10px rgba(124, 179, 217, 0.3);
+  transform: translateY(-2px);
+}
+
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background-color: #0b1e33;
+  border-right: 3px solid #fa0000;
+  z-index: 1000;
+  padding-top: 40px;
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sidebar-close:hover {
+  color: #fa0000;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  text-decoration: none;
+  color: #ffffff;
+  display: block;
+  padding: 15px 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(250, 0, 0, 0.3);
+}
+
+.sidebar-item:hover {
+  background-color: rgba(124, 179, 217, 0.15);
+  border-left: 4px solid #fa0000;
+  padding-left: 21px;
+}
+
+.main-content {
+  background-color: #ffffff;
+  min-height: calc(100vh - 60px);
+  border-top: 3px solid #fa0000;
+}
+
+.container {
+  padding: 20px;
+}
+
+.welcome-page {
+  text-align: center;
+  color: #0b1e33;
+  margin: 0;
+  padding: 40px 20px;
+  border-bottom: 3px solid #fa0000;
 }
