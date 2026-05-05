@@ -45,6 +45,11 @@
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1002;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,6 +57,19 @@
   background-color: #0b1e33;
   border-bottom: 3px solid #fa0000;
   height: 60px;
+}
+
+.App-container {
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  position: relative;
+  padding-top: 60px;
+}
+
+.main-content {
+  background-color: #ffffff;
+  min-height: calc(100vh - 60px);
 }
 
 .navbar-left {

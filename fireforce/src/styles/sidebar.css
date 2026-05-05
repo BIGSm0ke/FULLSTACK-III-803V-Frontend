@@ -6,10 +6,34 @@
   height: calc(100vh - 60px);
   background-color: #0b1e33;
   border-right: 3px solid #fa0000;
-  z-index: 1000;
+  z-index: 1001;
   padding: 0;
   display: flex;
   flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-open {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar-overlay-open {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sidebar-close {
@@ -41,6 +65,14 @@
 
 .sidebar-profile:hover {
   background-color: #132d47;
+}
+
+.sidebar-profile-guest {
+  cursor: default;
+}
+
+.sidebar-profile-guest:hover {
+  background-color: #0a1a2e;
 }
 
 .sidebar-photo {

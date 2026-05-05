@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import MonitoringPage from './components/pages/monitoreo';
 import Home from './components/pages/home';
@@ -42,85 +42,103 @@ const Layout = () => {
         setSidebarOpen(false);
     };
 
+    const closeSidebar = () => setSidebarOpen(false);
+
+    useEffect(() => {
+        if (sidebarOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => { document.body.style.overflow = 'auto'; };
+    }, [sidebarOpen]);
+
     return (
         <div className="App-container">
             <nav className="navbar">
                 <div className="navbar-left">
-                    <button className="navbar-logo-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
+                    <button className="navbar-logo-btn" onClick={() => setSidebarOpen(true)}>
                         <img src={CustomLogo} alt="Logo" className="navbar-logo" />
                     </button>
                 </div>
             </nav>
 
-            {sidebarOpen && (
-                <div className="sidebar">
-                    <button className="sidebar-close" onClick={() => setSidebarOpen(false)}>×</button>
-                    {isAuthenticated && user && (
-                        <div className="sidebar-profile" onClick={handleProfileClick}>
-                            <div className="sidebar-photo">
-                                {user.photo ? (
-                                    <img src={user.photo} alt={user.name} />
-                                ) : (
-                                    <span>{user.name?.charAt(0).toUpperCase()}</span>
-                                )}
-                                {isAdmin && <span className="admin-badge">ADMIN</span>}
-                            </div>
-                            <span className="sidebar-username">{user.name}</span>
-                        </div>
-                    )}
-                    <ul className="sidebar-menu">
-                        <li>
-                            <button
-                                className={`sidebar-item ${location.pathname === '/' ? 'active' : ''}`}
-                                onClick={() => handleNav('/')}
-                            >
-                                Inicio
-                            </button>
-                        </li>
-                        {isAdmin && (
-                            <li>
-                                <button
-                                    className={`sidebar-item ${location.pathname === '/monitoreo' ? 'active' : ''}`}
-                                    onClick={() => handleNav('/monitoreo')}
-                                >
-                                    Monitoreo
-                                </button>
-                            </li>
-                        )}
-                        <li>
-                            <button
-                                className={`sidebar-item ${location.pathname === '/alertas' ? 'active' : ''}`}
-                                onClick={() => handleNav('/alertas')}
-                            >
-                                Alertas
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                className={`sidebar-item ${location.pathname === '/reportes' ? 'active' : ''}`}
-                                onClick={() => handleNav('/reportes')}
-                            >
-                                Reportes
-                            </button>
-                        </li>
-                        <li className="sidebar-divider"></li>
-                        <li>
-                            {isAuthenticated ? (
-                                <button className="sidebar-item sidebar-logout" onClick={handleLogout}>
-                                    Cerrar Sesión
-                                </button>
+            <div className={`sidebar-overlay ${sidebarOpen ? 'sidebar-overlay-open' : ''}`} onClick={closeSidebar}></div>
+            
+            <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
+                <button className="sidebar-close" onClick={closeSidebar}>×</button>
+                {isAuthenticated && user ? (
+                    <div className="sidebar-profile" onClick={handleProfileClick}>
+                        <div className="sidebar-photo">
+                            {user.photo ? (
+                                <img src={user.photo} alt={user.name} />
                             ) : (
-                                <button
-                                    className={`sidebar-item ${location.pathname === '/login' ? 'active' : ''}`}
-                                    onClick={() => handleNav('/login')}
-                                >
-                                    Iniciar Sesión
-                                </button>
+                                <span>{user.name?.charAt(0).toUpperCase()}</span>
                             )}
+                            {isAdmin && <span className="admin-badge">ADMIN</span>}
+                        </div>
+                        <span className="sidebar-username">{user.name}</span>
+                    </div>
+                ) : (
+                    <div className="sidebar-profile sidebar-profile-guest">
+                        <div className="sidebar-photo">
+                            <span>?</span>
+                        </div>
+                        <span className="sidebar-username">Invitado</span>
+                    </div>
+                )}
+                <ul className="sidebar-menu">
+                    <li>
+                        <button
+                            className={`sidebar-item ${location.pathname === '/' ? 'active' : ''}`}
+                            onClick={() => handleNav('/')}
+                        >
+                            Inicio
+                        </button>
+                    </li>
+                    {isAdmin && (
+                        <li>
+                            <button
+                                className={`sidebar-item ${location.pathname === '/monitoreo' ? 'active' : ''}`}
+                                onClick={() => handleNav('/monitoreo')}
+                            >
+                                Monitoreo
+                            </button>
                         </li>
-                    </ul>
-                </div>
-            )}
+                    )}
+                    <li>
+                        <button
+                            className={`sidebar-item ${location.pathname === '/alertas' ? 'active' : ''}`}
+                            onClick={() => handleNav('/alertas')}
+                        >
+                            Alertas
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className={`sidebar-item ${location.pathname === '/reportes' ? 'active' : ''}`}
+                            onClick={() => handleNav('/reportes')}
+                        >
+                            Reportes
+                        </button>
+                    </li>
+                    <li className="sidebar-divider"></li>
+                    <li>
+                        {isAuthenticated ? (
+                            <button className="sidebar-item sidebar-logout" onClick={handleLogout}>
+                                Cerrar Sesión
+                            </button>
+                        ) : (
+                            <button
+                                className={`sidebar-item ${location.pathname === '/login' ? 'active' : ''}`}
+                                onClick={() => handleNav('/login')}
+                            >
+                                Iniciar Sesión
+                            </button>
+                        )}
+                    </li>
+                </ul>
+            </div>
 
             <div className="main-content">
                 <Routes>

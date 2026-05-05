@@ -135,16 +135,21 @@ const Reportes = () => {
 
     const prevStep = () => setStep(step - 1);
 
-    const handleSubmit = () => {
-        addReport({
-            ...formData,
-            lat: location.lat,
-            lng: location.lng,
-        }, user?.id || null);
-        setFormData({ fireType: '', severity: '', visible: '', address: '', name: user?.name || '', phone: user?.phone || '' });
-        setLocation(null);
-        setStep(1);
-        alert('Reporte enviado exitosamente.');
+    const handleSubmit = async () => {
+        try {
+            // Se pasa el reporte completo + userId al contexto, el cual llama al MS Reportes
+            await addReport({
+                ...formData,
+                lat: location.lat,
+                lng: location.lng,
+            }, user?.id || null);
+            setFormData({ fireType: '', severity: '', visible: '', address: '', name: user?.name || '', phone: user?.phone || '' });
+            setLocation(null);
+            setStep(1);
+            alert('Reporte enviado exitosamente.');
+        } catch (err) {
+            alert('Error al enviar el reporte: ' + err.message);
+        }
     };
 
     return (
