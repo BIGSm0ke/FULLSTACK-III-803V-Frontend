@@ -59,6 +59,17 @@
   align-items: center;
 }
 
+.navbar-logo-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.navbar-logo-btn:hover {
+  opacity: 0.8;
+}
+
 .navbar-logo {
   height: 40px;
   width: auto;
@@ -140,9 +151,18 @@
   font-size: 16px;
   transition: all 0.3s ease;
   border-bottom: 1px solid rgba(250, 0, 0, 0.3);
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
 }
 
-.sidebar-item:hover {
+.sidebar-item:hover,
+.sidebar-item.active {
   background-color: rgba(124, 179, 217, 0.15);
   border-left: 4px solid #fa0000;
   padding-left: 21px;

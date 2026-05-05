@@ -1,45 +1,71 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import MonitoringPage from './components/pages/monitoreo';
+import Home from './components/pages/home';
+import Footer from './components/footer';
 import './App.css';
 
-function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+const Layout = () => {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  return (
-    <Router>
-      <div className="App-container">
-        <nav className="navbar">
-          <div className="navbar-left">
-            <img src="/logo192.png" alt="Logo" className="navbar-logo" />
-          </div>
-          <div className="navbar-center">
-            <Link to="/" className="nav-button">Inicio</Link>
-            <button className="nav-button" onClick={() => setSidebarOpen(!sidebarOpen)}>
-              Secciones
-            </button>
-          </div>
-        </nav>
+    const handleNav = (path) => {
+        navigate(path);
+        setSidebarOpen(false);
+    };
 
-        {sidebarOpen && (
-          <div className="sidebar">
-            <button className="sidebar-close" onClick={() => setSidebarOpen(false)}>×</button>
-            <ul className="sidebar-menu">
-              <li><Link to="/monitoreo" className="sidebar-item" onClick={() => setSidebarOpen(false)}>Monitoreo</Link></li>
-              <li><Link to="/" className="sidebar-item" onClick={() => setSidebarOpen(false)}>Inicio</Link></li>
-            </ul>
-          </div>
-        )}
+    return (
+        <div className="App-container">
+            <nav className="navbar">
+                <div className="navbar-left">
+                    <button className="navbar-logo-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
+                        <img src="/logo192.png" alt="Logo" className="navbar-logo" />
+                    </button>
+                </div>
+            </nav>
 
-        <div className="main-content">
-          <Routes>
-            <Route path="/" element={<h1 className="welcome-page">Bienvenido a Municipalidad Valle del Sol</h1>} />
-            <Route path="/monitoreo" element={<MonitoringPage />} />
-          </Routes>
+            {sidebarOpen && (
+                <div className="sidebar">
+                    <button className="sidebar-close" onClick={() => setSidebarOpen(false)}>×</button>
+                    <ul className="sidebar-menu">
+                        <li>
+                            <button
+                                className={`sidebar-item ${location.pathname === '/' ? 'active' : ''}`}
+                                onClick={() => handleNav('/')}
+                            >
+                                Inicio
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className={`sidebar-item ${location.pathname === '/monitoreo' ? 'active' : ''}`}
+                                onClick={() => handleNav('/monitoreo')}
+                            >
+                                Monitoreo
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            )}
+
+            <div className="main-content">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/monitoreo" element={<MonitoringPage />} />
+                </Routes>
+            </div>
+            <Footer />
         </div>
-      </div>
-    </Router>
-  );
+    );
+};
+
+function App() {
+    return (
+        <Router>
+            <Layout />
+        </Router>
+    );
 }
 
 export default App;
