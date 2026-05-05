@@ -97,6 +97,16 @@
     text-decoration: underline;
 }
 
+.admin-hint {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #888;
+    padding: 8px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+}
+
 .sidebar-divider {
     margin: 10px 20px;
     border-top: 1px solid rgba(250, 0, 0, 0.4);

@@ -19,13 +19,21 @@ export const AuthProvider = ({ children }) => {
     }, [user]);
 
     const login = (email, password) => {
-        const mockUser = { id: 'user_1', name: 'Usuario Demo', email, phone: '+56 9 1234 5678', photo: null };
+        const isAdmin = email === 'admin@fireforce.com' && password === 'admin123';
+        const mockUser = { 
+            id: isAdmin ? 'admin_1' : 'user_1', 
+            name: isAdmin ? 'Administrador' : 'Usuario Demo', 
+            email, 
+            phone: '+56 9 1234 5678', 
+            photo: null,
+            isAdmin 
+        };
         setUser(mockUser);
         return mockUser;
     };
 
     const register = (name, email, password) => {
-        const newUser = { id: 'user_' + Date.now(), name, email, phone: '', photo: null };
+        const newUser = { id: 'user_' + Date.now(), name, email, phone: '', photo: null, isAdmin: false };
         setUser(newUser);
         return newUser;
     };
@@ -39,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, updateUser, logout, isAuthenticated: !!user }}>
+        <AuthContext.Provider value={{ user, login, register, updateUser, logout, isAuthenticated: !!user, isAdmin: user?.isAdmin || false }}>
             {children}
         </AuthContext.Provider>
     );

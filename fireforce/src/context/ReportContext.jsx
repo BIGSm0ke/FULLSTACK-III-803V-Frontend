@@ -24,12 +24,16 @@ export const ReportProvider = ({ children }) => {
         setReports(prev => [...prev, newReport]);
     };
 
+    const deleteReport = (reportId) => {
+        setReports(prev => prev.filter(r => r.id !== reportId));
+    };
+
     const getUserReports = (userId) => {
         return reports.filter(r => r.userId === userId);
     };
 
     return (
-        <ReportContext.Provider value={{ reports, addReport, getUserReports }}>
+        <ReportContext.Provider value={{ reports, addReport, deleteReport, getUserReports }}>
             {children}
         </ReportContext.Provider>
     );

@@ -7,10 +7,9 @@ const Footer = () => {
             <div className="footer-content">
                 <div className="footer-section">
                     <h3>Contacto</h3>
-                    <p>📞 Teléfono: +51 987-654-321</p>
+                    <p>📞 Teléfono: +56 9 1111 1111</p>
                     <p>📧 Email: contacto@municipalidadvalledelsol.gob.pe</p>
                     <p>📍 Dirección: Av. Los Libertadores 456, Valle del Sol</p>
-                    <p>🕐 Horario: Lunes a Viernes 8:00 AM - 6:00 PM</p>
                 </div>
                 <div className="footer-section">
                     <h3>Emergencias</h3>
@@ -26,7 +25,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>🔥 Diseñado por FireForce</p>
+                <p>🔥 Diseñado por FireForce 🔥</p>
             </div>
         </footer>
     );

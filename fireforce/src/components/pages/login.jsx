@@ -70,6 +70,7 @@ const Login = () => {
                         {isLogin ? 'Regístrate aquí' : 'Inicia sesión'}
                     </button>
                 </div>
+                {isLogin && <p className="admin-hint">🔑 Admin: admin@fireforce.com / admin123</p>}
             </div>
         </div>
     );

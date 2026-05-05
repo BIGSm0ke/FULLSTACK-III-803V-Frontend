@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import MonitoringPage from './components/pages/monitoreo';
 import Home from './components/pages/home';
 import Footer from './components/footer';
@@ -12,11 +12,18 @@ import CustomLogo from './assets/ff.jpg';
 import './App.css';
 import './styles/sidebar.css';
 
+const AdminRoute = ({ children }) => {
+    const { isAdmin, isAuthenticated } = useAuth();
+    if (!isAuthenticated) return <Navigate to="/login" replace />;
+    if (!isAdmin) return <Navigate to="/" replace />;
+    return children;
+};
+
 const Layout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const { user, isAuthenticated, logout } = useAuth();
+    const { user, isAuthenticated, logout, isAdmin } = useAuth();
 
     const handleNav = (path) => {
         navigate(path);
@@ -55,6 +62,7 @@ const Layout = () => {
                                 ) : (
                                     <span>{user.name?.charAt(0).toUpperCase()}</span>
                                 )}
+                                {isAdmin && <span className="admin-badge">ADMIN</span>}
                             </div>
                             <span className="sidebar-username">{user.name}</span>
                         </div>
@@ -68,14 +76,16 @@ const Layout = () => {
                                 Inicio
                             </button>
                         </li>
-                        <li>
-                            <button
-                                className={`sidebar-item ${location.pathname === '/monitoreo' ? 'active' : ''}`}
-                                onClick={() => handleNav('/monitoreo')}
-                            >
-                                Monitoreo
-                            </button>
-                        </li>
+                        {isAdmin && (
+                            <li>
+                                <button
+                                    className={`sidebar-item ${location.pathname === '/monitoreo' ? 'active' : ''}`}
+                                    onClick={() => handleNav('/monitoreo')}
+                                >
+                                    Monitoreo
+                                </button>
+                            </li>
+                        )}
                         <li>
                             <button
                                 className={`sidebar-item ${location.pathname === '/reportes' ? 'active' : ''}`}
@@ -106,7 +116,7 @@ const Layout = () => {
             <div className="main-content">
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/monitoreo" element={<MonitoringPage />} />
+                    <Route path="/monitoreo" element={<AdminRoute><MonitoringPage /></AdminRoute>} />
                     <Route path="/reportes" element={<Reportes />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/micuenta" element={<MiCuenta />} />
