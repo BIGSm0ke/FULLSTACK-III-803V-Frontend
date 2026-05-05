@@ -57,7 +57,7 @@ const Home = () => {
                             </Marker>
                         ))}
                     </MapContainer>
-                    <button className="try-map-btn" onClick={() => navigate('/monitoreo')}>
+                    <button className="try-map-btn" onClick={() => navigate('/reportes')}>
                         ¿Quieres reportar un incendio?
                     </button>
                 </div>

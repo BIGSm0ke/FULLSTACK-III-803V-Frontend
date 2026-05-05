@@ -1,0 +1,112 @@
+.alerts-container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    min-height: calc(100vh - 63px - 200px);
+}
+
+.alerts-container h1 {
+    color: #0b1e33;
+    margin: 0 0 30px 0;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #fa0000;
+    font-size: 2rem;
+}
+
+.alerts-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.alerts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.alert-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #ccc;
+    transition: transform 0.2s ease;
+}
+
+.alert-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.alert-card.alert-critica {
+    border-left-color: #9c27b0;
+}
+
+.alert-card.alert-alta {
+    border-left-color: #f44336;
+}
+
+.alert-card.alert-media {
+    border-left-color: #ff9800;
+}
+
+.alert-card.alert-baja {
+    border-left-color: #4caf50;
+}
+
+.alert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.alert-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.alert-badge-critica { background-color: #9c27b0; }
+.alert-badge-alta { background-color: #f44336; }
+.alert-badge-media { background-color: #ff9800; }
+.alert-badge-baja { background-color: #4caf50; }
+
+.alert-date {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.alert-address {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 8px 0;
+}
+
+.alert-visible {
+    font-size: 0.95rem;
+    color: #fa0000;
+    margin: 5px 0;
+}
+
+.alert-type {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 5px 0 0 0;
+}
+
+@media (max-width: 768px) {
+    .alerts-container {
+        padding: 20px 10px;
+    }
+
+    .alerts-grid {
+        grid-template-columns: 1fr;
+    }
+}
