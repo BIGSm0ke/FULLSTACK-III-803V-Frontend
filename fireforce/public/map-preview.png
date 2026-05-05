@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="400" viewBox="0 0 500 400">
+  <rect width="500" height="400" fill="#e8f4f8"/>
+  <text x="250" y="180" text-anchor="middle" font-family="Arial" font-size="24" fill="#0b1e33">Vista previa del Mapa</text>
+  <text x="250" y="210" text-anchor="middle" font-family="Arial" font-size="16" fill="#666666">Sistema de Monitoreo FireForce</text>
+  <circle cx="150" cy="280" r="12" fill="#fa0000"/>
+  <circle cx="250" cy="260" r="10" fill="#fa0000"/>
+  <circle cx="350" cy="300" r="14" fill="#fa0000"/>
+  <circle cx="200" cy="320" r="8" fill="#fa0000"/>
+  <line x1="50" y1="200" x2="450" y2="200" stroke="#cccccc" stroke-width="1"/>
+  <line x1="250" y1="50" x2="250" y2="350" stroke="#cccccc" stroke-width="1"/>
+</svg>
