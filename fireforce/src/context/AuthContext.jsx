@@ -19,18 +19,19 @@ export const AuthProvider = ({ children }) => {
     }, [user]);
 
     const login = (email, password) => {
-        // Simulación de inicio de sesión
-        // En un caso real, se validaría contra un backend
-        const mockUser = { id: 'user_1', name: 'Usuario Demo', email, phone: '+56 9 1234 5678' };
+        const mockUser = { id: 'user_1', name: 'Usuario Demo', email, phone: '+56 9 1234 5678', photo: null };
         setUser(mockUser);
         return mockUser;
     };
 
     const register = (name, email, password) => {
-        // Simulación de registro
-        const newUser = { id: 'user_' + Date.now(), name, email, phone: '' };
+        const newUser = { id: 'user_' + Date.now(), name, email, phone: '', photo: null };
         setUser(newUser);
         return newUser;
+    };
+
+    const updateUser = (updates) => {
+        setUser(prev => ({ ...prev, ...updates }));
     };
 
     const logout = () => {
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, isAuthenticated: !!user }}>
+        <AuthContext.Provider value={{ user, login, register, updateUser, logout, isAuthenticated: !!user }}>
             {children}
         </AuthContext.Provider>
     );
