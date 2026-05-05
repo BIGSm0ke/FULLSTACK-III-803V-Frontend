@@ -4,7 +4,10 @@ import MonitoringPage from './components/pages/monitoreo';
 import Home from './components/pages/home';
 import Footer from './components/footer';
 import Reportes from './components/pages/reportes';
+import Login from './components/pages/login';
+import MiCuenta from './components/pages/micuenta';
 import { ReportProvider } from './context/ReportContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import CustomLogo from './assets/ff.jpg';
 import './App.css';
 
@@ -12,9 +15,16 @@ const Layout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    const { isAuthenticated, logout } = useAuth();
 
     const handleNav = (path) => {
         navigate(path);
+        setSidebarOpen(false);
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
         setSidebarOpen(false);
     };
 
@@ -56,6 +66,34 @@ const Layout = () => {
                                 Reportes
                             </button>
                         </li>
+                        {isAuthenticated && (
+                            <>
+                                <li className="sidebar-divider"></li>
+                                <li>
+                                    <button
+                                        className={`sidebar-item ${location.pathname === '/micuenta' ? 'active' : ''}`}
+                                        onClick={() => handleNav('/micuenta')}
+                                    >
+                                        Mi Cuenta
+                                    </button>
+                                </li>
+                            </>
+                        )}
+                        <li className="sidebar-divider"></li>
+                        <li>
+                            {isAuthenticated ? (
+                                <button className="sidebar-item sidebar-logout" onClick={handleLogout}>
+                                    Cerrar Sesión
+                                </button>
+                            ) : (
+                                <button
+                                    className={`sidebar-item ${location.pathname === '/login' ? 'active' : ''}`}
+                                    onClick={() => handleNav('/login')}
+                                >
+                                    Iniciar Sesión
+                                </button>
+                            )}
+                        </li>
                     </ul>
                 </div>
             )}
@@ -65,6 +103,8 @@ const Layout = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/monitoreo" element={<MonitoringPage />} />
                     <Route path="/reportes" element={<Reportes />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/micuenta" element={<MiCuenta />} />
                 </Routes>
             </div>
             <Footer />
@@ -75,9 +115,11 @@ const Layout = () => {
 function App() {
     return (
         <Router>
-            <ReportProvider>
-                <Layout />
-            </ReportProvider>
+            <AuthProvider>
+                <ReportProvider>
+                    <Layout />
+                </ReportProvider>
+            </AuthProvider>
         </Router>
     );
 }

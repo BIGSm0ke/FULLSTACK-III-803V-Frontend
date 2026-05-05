@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
+import React, { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useReports } from '../../context/ReportContext';
+import { useAuth } from '../../context/AuthContext';
 import '../../styles/reportes.css';
 
 const deleteDefaultIcon = new L.Icon({
@@ -16,12 +17,15 @@ const deleteDefaultIcon = new L.Icon({
 const FireMap = ({ position, address, onLocationFound, onAddressResolved }) => {
     const map = useMap();
 
-    useMapEvents({
-        click(e) {
-            reverseGeocode(e.latlng.lat, e.latlng.lng);
-            onLocationFound(e.latlng);
-        },
-    });
+    const handleMapClick = (e) => {
+        reverseGeocode(e.latlng.lat, e.latlng.lng);
+        onLocationFound(e.latlng);
+    };
+
+    React.useEffect(() => {
+        map.on('click', handleMapClick);
+        return () => map.off('click', handleMapClick);
+    }, [map]);
 
     const reverseGeocode = async (lat, lng) => {
         try {
@@ -74,14 +78,15 @@ const FireMap = ({ position, address, onLocationFound, onAddressResolved }) => {
 
 const Reportes = () => {
     const { addReport } = useReports();
+    const { user } = useAuth();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         fireType: '',
         severity: '',
         visible: '',
         address: '',
-        name: '',
-        phone: '',
+        name: user?.name || '',
+        phone: user?.phone || '',
     });
     const [location, setLocation] = useState(null);
 
@@ -135,8 +140,8 @@ const Reportes = () => {
             ...formData,
             lat: location.lat,
             lng: location.lng,
-        });
-        setFormData({ fireType: '', severity: '', visible: '', address: '', name: '', phone: '' });
+        }, user?.id || null);
+        setFormData({ fireType: '', severity: '', visible: '', address: '', name: user?.name || '', phone: user?.phone || '' });
         setLocation(null);
         setStep(1);
         alert('Reporte enviado exitosamente.');
