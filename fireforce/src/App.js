@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import MonitoringPage from './components/pages/monitoreo';
 import Home from './components/pages/home';
@@ -7,8 +7,10 @@ import Reportes from './components/pages/reportes';
 import Alertas from './components/pages/alertas';
 import Login from './components/pages/login';
 import MiCuenta from './components/pages/micuenta';
+import About from './components/pages/about';
 import { ReportProvider } from './context/ReportContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import CustomLogo from './assets/ff.jpg';
 import './App.css';
 import './styles/sidebar.css';
@@ -18,6 +20,15 @@ const AdminRoute = ({ children }) => {
     if (!isAuthenticated) return <Navigate to="/login" replace />;
     if (!isAdmin) return <Navigate to="/" replace />;
     return children;
+};
+
+const ThemeToggle = () => {
+    const { theme, toggleTheme } = useTheme();
+    return (
+        <button className="theme-toggle-btn" onClick={toggleTheme}>
+            {theme === 'light' ? '🌙' : '☀️'}
+        </button>
+    );
 };
 
 const Layout = () => {
@@ -43,15 +54,6 @@ const Layout = () => {
     };
 
     const closeSidebar = () => setSidebarOpen(false);
-
-    useEffect(() => {
-        if (sidebarOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-        return () => { document.body.style.overflow = 'auto'; };
-    }, [sidebarOpen]);
 
     return (
         <div className="App-container">
@@ -138,6 +140,9 @@ const Layout = () => {
                         )}
                     </li>
                 </ul>
+                <div className="sidebar-footer">
+                    <ThemeToggle />
+                </div>
             </div>
 
             <div className="main-content">
@@ -148,6 +153,7 @@ const Layout = () => {
                     <Route path="/reportes" element={<Reportes />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/micuenta" element={<MiCuenta />} />
+                    <Route path="/about" element={<About />} />
                 </Routes>
             </div>
             <Footer />
@@ -160,7 +166,9 @@ function App() {
         <Router>
             <AuthProvider>
                 <ReportProvider>
-                    <Layout />
+                    <ThemeProvider>
+                        <Layout />
+                    </ThemeProvider>
                 </ReportProvider>
             </AuthProvider>
         </Router>

@@ -2,11 +2,11 @@
     max-width: 800px;
     margin: 40px auto;
     padding: 0 20px;
-    background-color: #ffffff;
+    background-color: var(--bg-primary, #ffffff);
 }
 
 .report-container h1 {
-    color: #0b1e33;
+    color: var(--text-primary, #0b1e33);
     font-size: 2rem;
     border-bottom: 3px solid #fa0000;
     padding-bottom: 10px;
@@ -27,7 +27,7 @@
     left: 10%;
     right: 10%;
     height: 3px;
-    background-color: #ddd;
+    background-color: var(--border-color, #ddd);
     z-index: 0;
 }
 
@@ -42,8 +42,8 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #ddd;
-    color: #666;
+    background-color: var(--border-color, #ddd);
+    color: var(--text-secondary, #666);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,23 +59,23 @@
 
 .step-label {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-secondary, #666);
 }
 
 .step.active .step-label {
-    color: #0b1e33;
+    color: var(--text-primary, #0b1e33);
     font-weight: bold;
 }
 
 .report-form {
-    background-color: #f8f9fa;
+    background-color: var(--bg-secondary, #f8f9fa);
     padding: 30px;
     border-radius: 12px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color, #e0e0e0);
 }
 
 .form-step h2 {
-    color: #0b1e33;
+    color: var(--text-primary, #0b1e33);
     margin-top: 0;
     margin-bottom: 20px;
 }
@@ -83,7 +83,7 @@
 .section-label {
     display: block;
     margin: 20px 0 10px 0;
-    color: #333;
+    color: var(--text-primary, #333);
     font-weight: bold;
     font-size: 0.95rem;
 }
@@ -100,8 +100,8 @@
 }
 
 .selection-card {
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
+    background-color: var(--card-bg, #ffffff);
+    border: 2px solid var(--border-color, #e0e0e0);
     border-radius: 12px;
     padding: 18px 12px;
     display: flex;
@@ -131,7 +131,7 @@
 .card-label {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #333;
+    color: var(--text-primary, #333);
     text-align: center;
 }
 
@@ -140,8 +140,8 @@
 }
 
 .severity-card {
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
+    background-color: var(--card-bg, #ffffff);
+    border: 2px solid var(--border-color, #e0e0e0);
     border-radius: 12px;
     padding: 15px 10px;
     display: flex;
@@ -165,7 +165,7 @@
 
 .card-sub {
     font-size: 0.75rem;
-    color: #666;
+    color: var(--text-secondary, #666);
     text-align: center;
 }
 
@@ -175,8 +175,14 @@
     margin-top: 20px;
 }
 
+.form-step h2 {
+    color: var(--text-primary, #0b1e33);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
 .hint {
-    color: #666;
+    color: var(--text-secondary, #666);
     font-size: 0.95rem;
     margin-bottom: 15px;
 }
@@ -197,7 +203,7 @@
 .form-group label {
     display: block;
     margin-bottom: 6px;
-    color: #333;
+    color: var(--text-primary, #333);
     font-weight: bold;
     font-size: 0.95rem;
 }
@@ -206,19 +212,14 @@
 .form-group textarea {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color, #ccc);
     border-radius: 8px;
     font-size: 1rem;
     font-family: inherit;
     transition: border-color 0.3s ease;
     box-sizing: border-box;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #0b1e33;
-    box-shadow: 0 0 5px rgba(11, 30, 51, 0.2);
+    background-color: var(--card-bg, #ffffff);
+    color: var(--text-primary, #333);
 }
 
 .btn-group {
@@ -247,33 +248,21 @@
     border: 1px solid #7cb3d9;
 }
 
-.btn-next:hover,
-.btn-submit:hover {
-    background-color: #1a3a5c;
-    box-shadow: 0 0 10px rgba(11, 30, 51, 0.3);
-}
-
-.btn-next:disabled,
-.btn-submit:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
 .btn-prev {
-    background-color: #ffffff;
-    color: #0b1e33;
-    border: 1px solid #0b1e33;
+    background-color: var(--card-bg, #ffffff);
+    color: var(--text-primary, #0b1e33);
+    border: 1px solid var(--border-color, #0b1e33);
 }
 
 .btn-prev:hover {
-    background-color: #f0f0f0;
+    background-color: var(--bg-secondary, #f0f0f0);
 }
 
 .review {
-    background-color: #ffffff;
+    background-color: var(--card-bg, #ffffff);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color, #e0e0e0);
     margin-bottom: 20px;
 }
 
@@ -281,17 +270,13 @@
     color: #fa0000;
     margin-top: 15px;
     margin-bottom: 8px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color, #eee);
     padding-bottom: 5px;
-}
-
-.review h3:first-child {
-    margin-top: 0;
 }
 
 .review p {
     margin: 6px 0;
-    color: #333;
+    color: var(--text-secondary, #333);
 }
 
 @media (max-width: 768px) {

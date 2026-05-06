@@ -4,21 +4,21 @@
     align-items: center;
     min-height: calc(100vh - 63px - 200px);
     padding: 40px 20px;
-    background-color: #ffffff;
+    background-color: var(--bg-secondary, #f5f5f5);
 }
 
 .auth-box {
-    background-color: #ffffff;
+    background-color: var(--card-bg, #ffffff);
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-shadow, 0 8px 32px rgba(0, 0, 0, 0.15));
     width: 100%;
     max-width: 420px;
     border-top: 4px solid #fa0000;
 }
 
 .auth-box h1 {
-    color: #0b1e33;
+    color: var(--text-primary, #0b1e33);
     font-size: 2rem;
     margin: 0 0 30px 0;
     text-align: center;
@@ -31,7 +31,7 @@
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: #333;
+    color: var(--text-primary, #333);
     font-weight: 600;
     font-size: 0.95rem;
 }
@@ -39,12 +39,14 @@
 .form-group input {
     width: 100%;
     padding: 12px 14px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color, #ccc);
     border-radius: 10px;
     font-size: 1rem;
     font-family: inherit;
     transition: border-color 0.3s ease;
     box-sizing: border-box;
+    background-color: var(--card-bg, #ffffff);
+    color: var(--text-primary, #333);
 }
 
 .form-group input:focus {
@@ -75,7 +77,7 @@
 .auth-toggle {
     text-align: center;
     margin-top: 20px;
-    color: #666;
+    color: var(--text-secondary, #666);
     font-size: 0.95rem;
 }
 
@@ -101,16 +103,10 @@
     text-align: center;
     margin-top: 15px;
     font-size: 0.8rem;
-    color: #888;
+    color: var(--text-secondary, #888);
     padding: 8px;
-    background-color: #f0f0f0;
+    background-color: var(--bg-secondary, #f0f0f0);
     border-radius: 6px;
-}
-
-.sidebar-divider {
-    margin: 10px 20px;
-    border-top: 1px solid rgba(250, 0, 0, 0.4);
-    list-style: none;
 }
 
 @media (max-width: 480px) {

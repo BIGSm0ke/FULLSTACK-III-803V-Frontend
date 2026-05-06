@@ -5,6 +5,11 @@
     padding: 30px 40px 0 40px;
 }
 
+[data-theme="dark"] .footer {
+    background-color: #050a10;
+    border-top-color: #fa0000;
+}
+
 .footer-content {
     display: flex;
     justify-content: space-between;
@@ -31,6 +36,17 @@
     font-size: 0.95rem;
     line-height: 1.6;
     color: #cccccc;
+}
+
+.footer-link {
+    color: #7cb3d9;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: #fa0000;
+    text-decoration: underline;
 }
 
 .footer-bottom {

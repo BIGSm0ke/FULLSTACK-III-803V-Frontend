@@ -163,3 +163,44 @@
   border-left: 4px solid #ffffff;
   padding-left: 21px;
 }
+
+.sidebar-footer {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(250, 0, 0, 0.3);
+}
+
+/* Theme styles */
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    margin: 10px auto;
+}
+
+.theme-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+[data-theme="dark"] .sidebar {
+    background-color: #050a10;
+}
+
+[data-theme="dark"] .sidebar-profile {
+    background-color: #050a10;
+}
+
+[data-theme="dark"] .sidebar-profile:hover {
+    background-color: #0a1728;
+}
