@@ -157,6 +157,9 @@ const Reportes = () => {
             <h1>Reportar Incendio</h1>
 
             <div className="stepper">
+                <div className="stepper-line">
+                    <div className="stepper-line-fill" style={{ width: `${((step - 1) / 2) * 100}%` }}></div>
+                </div>
                 <div className={`step ${step >= 1 ? 'active' : ''}`}>
                     <span className="step-number">1</span>
                     <span className="step-label">Datos del Incendio</span>

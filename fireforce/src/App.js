@@ -9,6 +9,7 @@ import Login from './components/pages/login';
 import MiCuenta from './components/pages/micuenta';
 import About from './components/pages/about';
 import Unete from './components/pages/unete';
+import AdminUsuarios from './components/pages/admin-usuarios';
 import { ReportProvider } from './context/ReportContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -114,14 +115,24 @@ const Layout = () => {
                         </button>
                     </li>
                     {isAdmin && (
-                        <li>
-                            <button
-                                className={`sidebar-item ${location.pathname === '/monitoreo' ? 'active' : ''}`}
-                                onClick={() => handleNav('/monitoreo')}
-                            >
-                                Monitoreo
-                            </button>
-                        </li>
+                        <>
+                            <li>
+                                <button
+                                    className={`sidebar-item ${location.pathname === '/monitoreo' ? 'active' : ''}`}
+                                    onClick={() => handleNav('/monitoreo')}
+                                >
+                                    Monitoreo
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    className={`sidebar-item ${location.pathname.startsWith('/admin-usuarios') ? 'active' : ''}`}
+                                    onClick={() => handleNav('/admin-usuarios')}
+                                >
+                                    Usuarios
+                                </button>
+                            </li>
+                        </>
                     )}
                     {isAuthenticated && (
                         <li>
@@ -166,6 +177,8 @@ const Layout = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/monitoreo" element={<AdminRoute><MonitoringPage /></AdminRoute>} />
+                    <Route path="/admin-usuarios" element={<AdminRoute><AdminUsuarios /></AdminRoute>} />
+                    <Route path="/admin-usuarios/:userId" element={<AdminRoute><AdminUsuarios /></AdminRoute>} />
                     <Route path="/alertas" element={<PrivateRoute><Alertas /></PrivateRoute>} />
                     <Route path="/reportes" element={<Reportes />} />
                     <Route path="/login" element={<Login />} />

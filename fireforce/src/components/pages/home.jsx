@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import { useReports } from '../../context/ReportContext';
 import { useAuth } from '../../context/AuthContext';
+import { weatherService } from '../../services/weatherService';
 import 'leaflet/dist/leaflet.css';
 import '../../styles/home.css';
 
@@ -15,6 +16,26 @@ const deleteDefaultIcon = new L.Icon({
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
 });
+
+const FALLBACK_WEATHER = { temp: 28, humidity: 15, wind: 35, riskLevel: 'alta' };
+
+const riskConfig = {
+    baja: { label: 'Riesgo Bajo', color: '#4caf50', icon: '🟢', desc: 'Condiciones seguras.' },
+    media: { label: 'Precaución', color: '#ff9800', icon: '🟡', desc: 'Mantener vigilancia.' },
+    alta: { label: 'Peligro Alto', color: '#f44336', icon: '🔴', desc: 'Alta probabilidad de incendios.' },
+    extrema: { label: 'Peligro Extremo', color: '#9c27b0', icon: '🟣', desc: 'Emergencia inminente.' },
+};
+
+const calculateRiskLevel = (temp, humidity, wind) => {
+    let score = 0;
+    if (temp > 35) score += 3; else if (temp > 30) score += 2; else if (temp > 25) score += 1;
+    if (humidity < 20) score += 3; else if (humidity < 35) score += 2; else if (humidity < 50) score += 1;
+    if (wind > 40) score += 3; else if (wind > 25) score += 2; else if (wind > 15) score += 1;
+    if (score >= 7) return 'extrema';
+    if (score >= 5) return 'alta';
+    if (score >= 3) return 'media';
+    return 'baja';
+};
 
 const featuredNews = [
     {
@@ -53,13 +74,53 @@ const Home = () => {
     const navigate = useNavigate();
     const { reports } = useReports();
     const { isAuthenticated } = useAuth();
+    const [weather, setWeather] = useState(null);
+    const [weatherLoading, setWeatherLoading] = useState(true);
+    const [weatherError, setWeatherError] = useState(false);
+
+    useEffect(() => {
+        const fetchWeather = async () => {
+            try {
+                const data = await weatherService.fetchWeather();
+                const riskLevel = calculateRiskLevel(data.temp, data.humidity, data.wind);
+                setWeather({ ...data, riskLevel });
+            } catch (err) {
+                console.warn('Weather API unavailable. Using fallback data.');
+                setWeather({ ...FALLBACK_WEATHER });
+                setWeatherError(true);
+            } finally {
+                setWeatherLoading(false);
+            }
+        };
+        fetchWeather();
+    }, []);
+
+    if (weatherLoading) {
+        return (
+            <div className="home-wrapper">
+                <div className="home-hero-bg">
+                    <img src="https://www.firefighternation.com/wp-content/uploads/2024/08/hero-header-example.jpg" alt="Firefighter" />
+                    <div className="hero-overlay"></div>
+                </div>
+                <div className="home-container">
+                    <div className="loading-skeleton">
+                        <div className="skeleton-block skeleton-wide"></div>
+                        <div className="skeleton-block skeleton-map"></div>
+                        <div className="skeleton-block skeleton-risk"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const currentRisk = riskConfig[weather.riskLevel];
 
     return (
         <div className="home-wrapper">
-            <div className="home-hero-bg">
-                <img src="https://www.firefighternation.com/wp-content/uploads/2024/08/hero-header-example.jpg" />
-                <div className="hero-overlay"></div>
-            </div>
+                <div className="home-hero-bg">
+                    <img src="https://www.firefighternation.com/wp-content/uploads/2024/08/hero-header-example.jpg" alt="Firefighter background" />
+                    <div className="hero-overlay"></div>
+                </div>
             
             <div className="home-container">
                 <div className="home-grid">
@@ -101,6 +162,32 @@ const Home = () => {
                         <button className="try-map-btn" onClick={() => navigate('/reportes')}>
                             ¿Quieres reportar un incendio?
                         </button>
+                    </div>
+
+                    <div className="home-block home-risk-block">
+                        <div className="risk-header">
+                            <h2>Índice de Riesgo de Incendio</h2>
+                            <span className="risk-badge" style={{ backgroundColor: currentRisk.color }}>{currentRisk.icon} {currentRisk.label}</span>
+                        </div>
+                        <p className="risk-desc">{currentRisk.desc}</p>
+                        {weatherError && <p className="risk-fallback-note">⚠️ Mostrando datos de referencia (servicio climático no disponible)</p>}
+                        <div className="risk-metrics">
+                            <div className="metric">
+                                <span className="metric-icon">🌡️</span>
+                                <span className="metric-label">Temperatura</span>
+                                <span className="metric-value">{weather.temp}°C</span>
+                            </div>
+                            <div className="metric">
+                                <span className="metric-icon">💧</span>
+                                <span className="metric-label">Humedad</span>
+                                <span className="metric-value">{weather.humidity}%</span>
+                            </div>
+                            <div className="metric">
+                                <span className="metric-icon">💨</span>
+                                <span className="metric-label">Viento</span>
+                                <span className="metric-value">{weather.wind} km/h</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

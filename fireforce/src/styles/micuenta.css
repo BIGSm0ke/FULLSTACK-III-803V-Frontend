@@ -136,9 +136,13 @@
 }
 
 .btn-edit {
-    width: 100%;
-    background-color: #0b1e33;
+    flex: 1;
+    background-color: #fa0000;
     color: #ffffff;
+}
+
+.btn-edit:hover {
+    background-color: #cc0000;
 }
 
 .btn-save {
@@ -251,5 +255,9 @@
 
     .account-container {
         padding: 20px 10px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
     }
 }
