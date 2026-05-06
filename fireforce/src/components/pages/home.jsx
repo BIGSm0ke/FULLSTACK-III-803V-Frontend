@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import { useReports } from '../../context/ReportContext';
+import { useAuth } from '../../context/AuthContext';
 import 'leaflet/dist/leaflet.css';
 import '../../styles/home.css';
 
@@ -51,6 +52,7 @@ const featuredNews = [
 const Home = () => {
     const navigate = useNavigate();
     const { reports } = useReports();
+    const { isAuthenticated } = useAuth();
 
     return (
         <div className="home-wrapper">
@@ -100,6 +102,12 @@ const Home = () => {
                             ¿Quieres reportar un incendio?
                         </button>
                     </div>
+                </div>
+
+                <div className="alerts-cta">
+                    <button className="btn-alerts-cta" onClick={() => navigate(isAuthenticated ? '/alertas' : '/login')}>
+                        {isAuthenticated ? '🚨 ¡Revisa las alertas actuales! 🚨' : '🚨 ¡Inicia sesión para recibir las alertas! 🚨'}
+                    </button>
                 </div>
 
                 <div className="news-section">

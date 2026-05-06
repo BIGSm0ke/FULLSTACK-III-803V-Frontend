@@ -49,6 +49,25 @@
     text-decoration: underline;
 }
 
+.btn-join {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 20px;
+    background-color: #fa0000;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-join:hover {
+    background-color: #cc0000;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
 .footer-bottom {
     text-align: center;
     padding: 15px 0;

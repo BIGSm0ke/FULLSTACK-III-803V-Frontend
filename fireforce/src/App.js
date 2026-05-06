@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import MonitoringPage from './components/pages/monitoreo';
 import Home from './components/pages/home';
@@ -8,6 +8,7 @@ import Alertas from './components/pages/alertas';
 import Login from './components/pages/login';
 import MiCuenta from './components/pages/micuenta';
 import About from './components/pages/about';
+import Unete from './components/pages/unete';
 import { ReportProvider } from './context/ReportContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -15,10 +16,24 @@ import CustomLogo from './assets/fflogo.png';
 import './App.css';
 import './styles/sidebar.css';
 
+const ScrollToTop = () => {
+    const { pathname } = useLocation();
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+    return null;
+};
+
 const AdminRoute = ({ children }) => {
     const { isAdmin, isAuthenticated } = useAuth();
     if (!isAuthenticated) return <Navigate to="/login" replace />;
     if (!isAdmin) return <Navigate to="/" replace />;
+    return children;
+};
+
+const PrivateRoute = ({ children }) => {
+    const { isAuthenticated } = useAuth();
+    if (!isAuthenticated) return <Navigate to="/login" replace />;
     return children;
 };
 
@@ -108,14 +123,16 @@ const Layout = () => {
                             </button>
                         </li>
                     )}
-                    <li>
-                        <button
-                            className={`sidebar-item ${location.pathname === '/alertas' ? 'active' : ''}`}
-                            onClick={() => handleNav('/alertas')}
-                        >
-                            Alertas
-                        </button>
-                    </li>
+                    {isAuthenticated && (
+                        <li>
+                            <button
+                                className={`sidebar-item ${location.pathname === '/alertas' ? 'active' : ''}`}
+                                onClick={() => handleNav('/alertas')}
+                            >
+                                Alertas
+                            </button>
+                        </li>
+                    )}
                     <li>
                         <button
                             className={`sidebar-item ${location.pathname === '/reportes' ? 'active' : ''}`}
@@ -149,11 +166,12 @@ const Layout = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/monitoreo" element={<AdminRoute><MonitoringPage /></AdminRoute>} />
-                    <Route path="/alertas" element={<Alertas />} />
+                    <Route path="/alertas" element={<PrivateRoute><Alertas /></PrivateRoute>} />
                     <Route path="/reportes" element={<Reportes />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/micuenta" element={<MiCuenta />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/unete" element={<Unete />} />
                 </Routes>
             </div>
             <Footer />
@@ -164,6 +182,7 @@ const Layout = () => {
 function App() {
     return (
         <Router>
+            <ScrollToTop />
             <AuthProvider>
                 <ReportProvider>
                     <ThemeProvider>
