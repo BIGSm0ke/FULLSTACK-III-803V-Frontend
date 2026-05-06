@@ -11,7 +11,7 @@ import About from './components/pages/about';
 import { ReportProvider } from './context/ReportContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import CustomLogo from './assets/ff.jpg';
+import CustomLogo from './assets/fflogo.png';
 import './App.css';
 import './styles/sidebar.css';
 

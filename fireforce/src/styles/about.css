@@ -38,7 +38,7 @@
     background-color: var(--bg-secondary, #f8f9fa);
     padding: 25px;
     border-radius: 12px;
-    border-top: 3px solid #0b1e33;
+    border-top: 3px solid #fa0000;
     box-shadow: var(--card-shadow, 0 2px 8px rgba(0, 0, 0, 0.05));
     transition: transform 0.3s ease;
 }
