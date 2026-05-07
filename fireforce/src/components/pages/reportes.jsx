@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useReports } from '../../context/ReportContext';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import '../../styles/reportes.css';
 
 const deleteDefaultIcon = new L.Icon({
@@ -135,9 +136,10 @@ const Reportes = () => {
 
     const prevStep = () => setStep(step - 1);
 
+    const { addToast } = useToast();
+
     const handleSubmit = async () => {
         try {
-            // Se pasa el reporte completo + userId al contexto, el cual llama al MS Reportes
             await addReport({
                 ...formData,
                 lat: location.lat,
@@ -146,9 +148,9 @@ const Reportes = () => {
             setFormData({ fireType: '', severity: '', visible: '', address: '', name: user?.name || '', phone: user?.phone || '' });
             setLocation(null);
             setStep(1);
-            alert('Reporte enviado exitosamente.');
+            addToast('Reporte enviado exitosamente');
         } catch (err) {
-            alert('Error al enviar el reporte: ' + err.message);
+            addToast('Error al enviar el reporte: ' + err.message, 'error');
         }
     };
 
@@ -265,7 +267,7 @@ const Reportes = () => {
                             <input type="text" name="name" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} placeholder="Juan Pérez" />
                         </div>
                         <div className="form-group">
-                            <label>Teléfono de contacto *</label>
+                            <label>Teléfono de contacto </label>
                             <input type="tel" name="phone" value={formData.phone} onChange={(e) => handleChange('phone', e.target.value)} placeholder="+56 9 1234 5678" />
                         </div>
 

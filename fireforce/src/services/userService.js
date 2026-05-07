@@ -5,6 +5,7 @@ export const userService = {
     register: (name, email, password) => api.post('/auth/register', { name, email, password }),
     getProfile: () => api.get('/users/profile'),
     updateProfile: (data) => api.put('/users/profile', data),
+    getAllUsers: () => api.get('/auth/usuarios'),
     logout: () => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('currentUser');

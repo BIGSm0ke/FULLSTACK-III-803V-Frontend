@@ -13,6 +13,7 @@ import AdminUsuarios from './components/pages/admin-usuarios';
 import { ReportProvider } from './context/ReportContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { ToastProvider } from './context/ToastContext';
 import CustomLogo from './assets/fflogo.png';
 import './App.css';
 import './styles/sidebar.css';
@@ -198,9 +199,11 @@ function App() {
             <ScrollToTop />
             <AuthProvider>
                 <ReportProvider>
-                    <ThemeProvider>
-                        <Layout />
-                    </ThemeProvider>
+                    <ToastProvider>
+                        <ThemeProvider>
+                            <Layout />
+                        </ThemeProvider>
+                    </ToastProvider>
                 </ReportProvider>
             </AuthProvider>
         </Router>

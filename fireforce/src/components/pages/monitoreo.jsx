@@ -12,11 +12,6 @@ const severityIcons = {
     baja: new L.Icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png', shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41] }),
 };
 
-const MOCK_MONITOR_FIRES = [
-    { id: 1, lat: -33.4489, lng: -70.6693, severity: 'alta', fireType: 'forestal', visible: 'humo', address: 'Sector Norte', name: 'Admin', timestamp: '2025-05-06T10:00:00', status: 'en_sitio', statusHistory: [{ status: 'recibido', time: '10:00' }, { status: 'en_camino', time: '10:05' }, { status: 'en_sitio', time: '10:15' }] },
-    { id: 2, lat: -33.4589, lng: -70.6593, severity: 'media', fireType: 'basural', visible: 'fuego', address: 'Av. Central', name: 'User', timestamp: '2025-05-06T11:00:00', status: 'en_camino', statusHistory: [{ status: 'recibido', time: '11:00' }, { status: 'en_camino', time: '11:10' }] },
-];
-
 const statusOrder = ['recibido', 'en_camino', 'en_sitio', 'controlado'];
 const statusLabels = { recibido: 'Recibido', en_camino: 'En Camino', en_sitio: 'En Sitio', controlado: 'Controlado' };
 const statusIcons = { recibido: '📞', en_camino: '🚒', en_sitio: '📍', controlado: '✅' };
@@ -35,10 +30,9 @@ const MonitoringPage = () => {
             try {
                 const data = await monitorService.getActiveFires();
                 const firesData = Array.isArray(data) ? data : data.fires || [];
-                setFires(firesData.length > 0 ? firesData : MOCK_MONITOR_FIRES);
+                setFires(firesData);
             } catch (err) {
-                setFires(MOCK_MONITOR_FIRES);
-                console.warn('Backend no disponible. Usando monitoreo de ejemplo.');
+                console.error('Error cargando monitoreo:', err);
             } finally {
                 setLoading(false);
             }
@@ -88,31 +82,34 @@ const MonitoringPage = () => {
                                             <span>{fire.visible?.replace('_', ' ')}</span>
                                         </div>
                                         
-                                        {fire.statusHistory && fire.statusHistory.length > 0 && (
-                                            <div className="popup-timeline">
-                                                <h4 className="timeline-title">Estado de Respuesta</h4>
-                                                <div className="timeline-steps">
-                                                    {statusOrder.map((step, idx) => {
-                                                        const isCompleted = fire.statusHistory.some(s => s.status === step);
-                                                        const isCurrent = fire.status === step;
-                                                        return (
-                                                            <div key={step} className={`timeline-step ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}`}>
-                                                                <div className="timeline-dot">{statusIcons[step]}</div>
-                                                                <div className="timeline-info">
-                                                                    <span className="timeline-label">{statusLabels[step]}</span>
-                                                                    {isCompleted && (
-                                                                        <span className="timeline-time">
-                                                                            {fire.statusHistory.find(s => s.status === step)?.time}
-                                                                        </span>
-                                                                    )}
+                                        {(() => {
+                                            const history = typeof fire.statusHistory === 'string' ? (() => { try { return JSON.parse(fire.statusHistory); } catch { return []; } })() : fire.statusHistory;
+                                            return history.length > 0 && (
+                                                <div className="popup-timeline">
+                                                    <h4 className="timeline-title">Estado de Respuesta</h4>
+                                                    <div className="timeline-steps">
+                                                        {statusOrder.map((step, idx) => {
+                                                            const isCompleted = history.some(s => s.status === step);
+                                                            const isCurrent = fire.status === step;
+                                                            return (
+                                                                <div key={step} className={`timeline-step ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}`}>
+                                                                    <div className="timeline-dot">{statusIcons[step]}</div>
+                                                                    <div className="timeline-info">
+                                                                        <span className="timeline-label">{statusLabels[step]}</span>
+                                                                        {isCompleted && (
+                                                                            <span className="timeline-time">
+                                                                                {history.find(s => s.status === step)?.time}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    {idx < statusOrder.length - 1 && <div className="timeline-line"></div>}
                                                                 </div>
-                                                                {idx < statusOrder.length - 1 && <div className="timeline-line"></div>}
-                                                            </div>
-                                                        );
-                                                    })}
+                                                            );
+                                                        })}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )}
+                                            );
+                                        })()}
 
                                         <div className="popup-row">
                                             <span className="popup-label">Dirección:</span>

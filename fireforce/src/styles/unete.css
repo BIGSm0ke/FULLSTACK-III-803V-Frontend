@@ -75,7 +75,7 @@
     border-color: #fa0000;
 }
 
-.btn-submit {
+.unete-container .btn-submit {
     width: 100%;
     padding: 14px;
     background-color: #0b1e33;
@@ -90,7 +90,7 @@
     margin-top: 10px;
 }
 
-.btn-submit:hover {
+.unete-container .btn-submit:hover {
     background-color: #fa0000;
 }
 

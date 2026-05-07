@@ -22,25 +22,13 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         setError(null);
         try {
-            // Intenta conectar con el microservicio real
             const data = await userService.login(email, password);
             localStorage.setItem('authToken', data.token);
             setUser(data.user);
             return data.user;
         } catch (err) {
-            // FALLBACK: Si el microservicio falla, usa datos simulados
-            console.warn('Backend no disponible. Usando modo simulado.');
-            const isAdmin = email === 'admin@fireforce.com' && password === 'admin123';
-            const mockUser = { 
-                id: isAdmin ? 'admin_1' : 'user_' + Date.now(), 
-                name: isAdmin ? 'Administrador' : (email.split('@')[0] || 'Usuario Demo'), 
-                email, 
-                phone: '+56 9 1234 5678', 
-                photo: null,
-                isAdmin 
-            };
-            setUser(mockUser);
-            return mockUser;
+            setError(err.message);
+            throw err;
         } finally {
             setLoading(false);
         }
@@ -55,11 +43,8 @@ export const AuthProvider = ({ children }) => {
             setUser(data.user);
             return data.user;
         } catch (err) {
-            // FALLBACK: Registro simulado
-            console.warn('Backend no disponible. Usando modo simulado.');
-            const newUser = { id: 'user_' + Date.now(), name, email, phone: '', photo: null, isAdmin: false };
-            setUser(newUser);
-            return newUser;
+            setError(err.message);
+            throw err;
         } finally {
             setLoading(false);
         }

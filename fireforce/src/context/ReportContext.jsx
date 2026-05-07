@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { reportService } from '../services/reportService';
 
 const ReportContext = createContext();
@@ -9,6 +9,8 @@ export const ReportProvider = ({ children }) => {
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    useEffect(() => { loadReports(); }, []);
 
     const loadReports = async (filters = {}) => {
         setLoading(true);

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import '../../styles/login.css';
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
     const { login, register, isAuthenticated } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -19,20 +21,24 @@ const Login = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isLogin) {
-            login(formData.email, formData.password);
-            alert('Inicio de sesión exitoso');
-        } else {
-            if (formData.password !== formData.confirmPassword) {
-                alert('Las contraseñas no coinciden');
-                return;
+        try {
+            if (isLogin) {
+                await login(formData.email, formData.password);
+                addToast('Inicio de sesión exitoso');
+            } else {
+                if (formData.password !== formData.confirmPassword) {
+                    addToast('Las contraseñas no coinciden', 'error');
+                    return;
+                }
+                await register(formData.name, formData.email, formData.password);
+                addToast('Registro exitoso');
             }
-            register(formData.name, formData.email, formData.password);
-            alert('Registro exitoso');
+            navigate('/');
+        } catch (err) {
+            addToast(err.message || 'Error al procesar la solicitud', 'error');
         }
-        navigate('/');
     };
 
     return (
@@ -70,7 +76,6 @@ const Login = () => {
                         {isLogin ? 'Regístrate aquí' : 'Inicia sesión'}
                     </button>
                 </div>
-                {isLogin && <p className="admin-hint">🔑 Admin: admin@fireforce.com / admin123</p>}
             </div>
         </div>
     );

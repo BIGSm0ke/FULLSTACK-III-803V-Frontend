@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
-import { useReports } from '../../context/ReportContext';
 import { useAuth } from '../../context/AuthContext';
 import { weatherService } from '../../services/weatherService';
+import { monitorService } from '../../services/monitorService';
 import 'leaflet/dist/leaflet.css';
 import '../../styles/home.css';
 
@@ -16,8 +16,6 @@ const deleteDefaultIcon = new L.Icon({
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
 });
-
-const FALLBACK_WEATHER = { temp: 28, humidity: 15, wind: 35, riskLevel: 'alta' };
 
 const riskConfig = {
     baja: { label: 'Riesgo Bajo', color: '#4caf50', icon: '🟢', desc: 'Condiciones seguras.' },
@@ -72,11 +70,17 @@ const featuredNews = [
 
 const Home = () => {
     const navigate = useNavigate();
-    const { reports } = useReports();
     const { isAuthenticated } = useAuth();
+    const [fires, setFires] = useState([]);
     const [weather, setWeather] = useState(null);
     const [weatherLoading, setWeatherLoading] = useState(true);
     const [weatherError, setWeatherError] = useState(false);
+
+    useEffect(() => {
+        monitorService.getActiveFires().then(data => {
+            setFires(Array.isArray(data) ? data : []);
+        }).catch(() => {});
+    }, []);
 
     useEffect(() => {
         const fetchWeather = async () => {
@@ -85,8 +89,7 @@ const Home = () => {
                 const riskLevel = calculateRiskLevel(data.temp, data.humidity, data.wind);
                 setWeather({ ...data, riskLevel });
             } catch (err) {
-                console.warn('Weather API unavailable. Using fallback data.');
-                setWeather({ ...FALLBACK_WEATHER });
+                console.error('Weather API unavailable:', err);
                 setWeatherError(true);
             } finally {
                 setWeatherLoading(false);
@@ -107,6 +110,23 @@ const Home = () => {
                         <div className="skeleton-block skeleton-wide"></div>
                         <div className="skeleton-block skeleton-map"></div>
                         <div className="skeleton-block skeleton-risk"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (!weather) {
+        return (
+            <div className="home-wrapper">
+                <div className="home-hero-bg">
+                    <img src="https://www.firefighternation.com/wp-content/uploads/2024/08/hero-header-example.jpg" alt="Firefighter" />
+                    <div className="hero-overlay"></div>
+                </div>
+                <div className="home-container">
+                    <div className="home-block home-info">
+                        <h1>Bienvenido a Municipalidad Valle del Sol</h1>
+                        <p>Servicio climático no disponible en este momento.</p>
                     </div>
                 </div>
             </div>
@@ -147,14 +167,14 @@ const Home = () => {
                             attributionControl={true}
                         >
                             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                            {reports.map(report => (
-                                <Marker key={report.id} position={[report.lat, report.lng]} icon={deleteDefaultIcon}>
+                            {fires.map(fire => (
+                                <Marker key={fire.id} position={[fire.lat, fire.lng]} icon={deleteDefaultIcon}>
                                     <Popup>
-                                        <strong>Incendio {report.fireType}</strong><br />
-                                        Gravedad: {report.severity}<br />
-                                        Se observa: {report.visible}<br />
-                                        Dirección: {report.address}<br />
-                                        <em>Reportado por: {report.name}</em>
+                                        <strong>Incendio {fire.fireType}</strong><br />
+                                        Gravedad: {fire.severity}<br />
+                                        Se observa: {fire.visible}<br />
+                                        Dirección: {fire.address}<br />
+                                        <em>Reportado por: {fire.name}</em>
                                     </Popup>
                                 </Marker>
                             ))}

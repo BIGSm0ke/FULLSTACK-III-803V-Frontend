@@ -249,33 +249,29 @@
     margin-top: 20px;
 }
 
-.btn-next,
-.btn-prev,
-.btn-submit {
-    padding: 12px 25px;
-    border-radius: 12px;
-    font-size: 16px;
+.btn-group .btn-next,
+.btn-group .btn-prev,
+.btn-group .btn-submit,
+.btn-group-right .btn-next {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: inherit;
-    border: none;
-}
-
-.btn-next,
-.btn-submit {
     background-color: #0b1e33;
     color: #ffffff;
     border: 1px solid #7cb3d9;
+    width: auto;
+    font-weight: 400;
+    margin-top: 0;
 }
 
-.btn-prev {
-    background-color: var(--card-bg, #ffffff);
-    color: var(--text-primary, #0b1e33);
-    border: 1px solid var(--border-color, #0b1e33);
-}
-
-.btn-prev:hover {
-    background-color: var(--bg-secondary, #f0f0f0);
+.btn-group .btn-next:hover,
+.btn-group .btn-prev:hover,
+.btn-group .btn-submit:hover,
+.btn-group-right .btn-next:hover {
+    background-color: #1a3355;
 }
 
 .review {

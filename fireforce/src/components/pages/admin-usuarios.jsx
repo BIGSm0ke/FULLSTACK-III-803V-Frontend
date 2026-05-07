@@ -1,47 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useReports } from '../../context/ReportContext';
+import { userService } from '../../services/userService';
 import '../../styles/admin-usuarios.css';
-
-const MOCK_USERS = [
-    { id: 'admin_1', name: 'Administrador', email: 'admin@fireforce.com', phone: '+51 987-654-321', isAdmin: true, photo: null, createdAt: '2025-01-15T10:00:00' },
-    { id: 'user_1', name: 'Carlos Rodríguez', email: 'carlos@email.com', phone: '+51 912-345-678', isAdmin: false, photo: null, createdAt: '2025-03-20T14:30:00' },
-    { id: 'user_2', name: 'María López', email: 'maria@email.com', phone: '+51 923-456-789', isAdmin: false, photo: null, createdAt: '2025-04-10T09:15:00' },
-    { id: 'user_3', name: 'Jorge Mendoza', email: 'jorge@email.com', phone: '+51 934-567-890', isAdmin: false, photo: null, createdAt: '2025-05-01T16:45:00' },
-    { id: 'user_4', name: 'Ana Torres', email: 'ana@email.com', phone: '+51 945-678-901', isAdmin: false, photo: null, createdAt: '2025-05-05T11:20:00' },
-];
-
-const MOCK_USER_REPORTS = {
-    'user_1': [
-        { id: 'r1', fireType: 'forestal', severity: 'alta', visible: 'llamas_grandes', address: 'Sector Norte, Parque Industrial', timestamp: '2025-05-01T10:30:00', name: 'Carlos Rodríguez', phone: '+51 912-345-678' },
-        { id: 'r2', fireType: 'casa', severity: 'media', visible: 'humo', address: 'Av. Los Olivos 456', timestamp: '2025-05-03T14:15:00', name: 'Carlos Rodríguez', phone: '+51 912-345-678' },
-    ],
-    'user_2': [
-        { id: 'r3', fireType: 'vehiculo', severity: 'baja', visible: 'humo_leve', address: 'Estacionamiento Municipal', timestamp: '2025-04-28T09:00:00', name: 'María López', phone: '+51 923-456-789' },
-    ],
-    'user_3': [
-        { id: 'r4', fireType: 'comercio', severity: 'critica', visible: 'explosion', address: 'Calle Comercio 789', timestamp: '2025-05-02T18:45:00', name: 'Jorge Mendoza', phone: '+51 934-567-890' },
-        { id: 'r5', fireType: 'terreno', severity: 'alta', visible: 'llamas_pequenas', address: 'Lote 12, Zona Sur', timestamp: '2025-05-04T07:30:00', name: 'Jorge Mendoza', phone: '+51 934-567-890' },
-        { id: 'r6', fireType: 'otro', severity: 'media', visible: 'fuego_controlado', address: 'Av. Principal 234', timestamp: '2025-05-05T12:00:00', name: 'Jorge Mendoza', phone: '+51 934-567-890' },
-    ],
-    'user_4': [],
-    'admin_1': [
-        { id: 'r7', fireType: 'forestal', severity: 'critica', visible: 'columna_fuego', address: 'Bosque Norte, Sector 5', timestamp: '2025-05-06T08:00:00', name: 'Administrador', phone: '+51 987-654-321' },
-    ],
-};
 
 const AdminUsuarios = () => {
     const navigate = useNavigate();
     const { userId } = useParams();
-    const [users, setUsers] = useState(MOCK_USERS);
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const selectedUser = users.find(u => u.id === userId);
     const { getUserReports } = useReports();
 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const data = await userService.getAllUsers();
+                setUsers(Array.isArray(data) ? data : []);
+            } catch (err) {
+                console.error('Error cargando usuarios:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchUsers();
+    }, []);
+
+    const selectedUser = users.find(u => u.id === Number(userId));
+
     const filteredUsers = users.filter(u =>
-        u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        u.email.toLowerCase().includes(searchQuery.toLowerCase())
+        (u.name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (u.email || '').toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const formatDate = (dateStr) => new Date(dateStr).toLocaleString('es-CL', {
@@ -96,9 +86,7 @@ const AdminUsuarios = () => {
     };
 
     if (userId && selectedUser) {
-        const userReports = getUserReports(selectedUser.id).length > 0
-            ? getUserReports(selectedUser.id)
-            : (MOCK_USER_REPORTS[selectedUser.id] || []);
+        const userReports = getUserReports(selectedUser.id);
 
         return (
             <div className="admin-user-detail">
@@ -131,8 +119,8 @@ const AdminUsuarios = () => {
                                 <span className="detail-value">{selectedUser.phone || 'No proporcionado'}</span>
                             </div>
                             <div className="detail-row">
-                                <span className="detail-label">Miembro desde:</span>
-                                <span className="detail-value">{formatDate(selectedUser.createdAt)}</span>
+                                <span className="detail-label">Rol:</span>
+                                <span className="detail-value">{selectedUser.isAdmin ? 'Administrador' : 'Usuario'}</span>
                             </div>
                         </div>
                     </div>
@@ -187,7 +175,7 @@ const AdminUsuarios = () => {
             ) : (
                 <div className="admin-users-grid">
                     {filteredUsers.map(user => {
-                        const userReportCount = (MOCK_USER_REPORTS[user.id] || []).length;
+                        const userReportCount = getUserReports(user.id).length;
                         return (
                             <div
                                 key={user.id}
