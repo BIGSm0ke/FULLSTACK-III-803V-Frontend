@@ -6,6 +6,15 @@
   --card-bg: #ffffff;
   --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   --border-color: #e0e0e0;
+  --btn-primary-bg: #0b1e33;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: #7cb3d9;
+  --btn-primary-hover: #1a3355;
+  --btn-danger-bg: #fa0000;
+  --btn-danger-text: #ffffff;
+  --btn-danger-hover: #cc0000;
+  --btn-success-bg: #4caf50;
+  --btn-success-text: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -16,6 +25,15 @@
   --card-bg: #1e1e1e;
   --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   --border-color: #333333;
+  --btn-primary-bg: #2a4a7a;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: #5a8aba;
+  --btn-primary-hover: #3a5a8a;
+  --btn-danger-bg: #ff4444;
+  --btn-danger-text: #ffffff;
+  --btn-danger-hover: #cc3333;
+  --btn-success-bg: #66bb6a;
+  --btn-success-text: #ffffff;
 }
 
 body {

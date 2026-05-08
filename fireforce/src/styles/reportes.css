@@ -259,9 +259,9 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: inherit;
-    background-color: #0b1e33;
-    color: #ffffff;
-    border: 1px solid #7cb3d9;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    border: 1px solid var(--btn-primary-border);
     width: auto;
     font-weight: 400;
     margin-top: 0;
@@ -271,7 +271,7 @@
 .btn-group .btn-prev:hover,
 .btn-group .btn-submit:hover,
 .btn-group-right .btn-next:hover {
-    background-color: #1a3355;
+    background-color: var(--btn-primary-hover);
 }
 
 .review {

@@ -78,8 +78,8 @@
 .unete-container .btn-submit {
     width: 100%;
     padding: 14px;
-    background-color: #0b1e33;
-    color: #ffffff;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
     border: none;
     border-radius: 10px;
     font-size: 1.1rem;
@@ -91,7 +91,7 @@
 }
 
 .unete-container .btn-submit:hover {
-    background-color: #fa0000;
+    background-color: var(--btn-danger-bg);
 }
 
 /* Success page */
@@ -139,8 +139,8 @@
 .btn-back {
     margin-top: 30px;
     padding: 12px 30px;
-    background-color: #0b1e33;
-    color: #ffffff;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
     border: none;
     border-radius: 10px;
     font-size: 1rem;
@@ -150,7 +150,7 @@
 }
 
 .btn-back:hover {
-    background-color: #fa0000;
+    background-color: var(--btn-danger-bg);
 }
 
 @media (max-width: 768px) {

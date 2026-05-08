@@ -122,9 +122,9 @@
     margin-top: 20px;
 }
 
-.btn-edit,
-.btn-save,
-.btn-cancel {
+.account-container .btn-edit,
+.account-container .btn-save,
+.account-container .btn-cancel {
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -135,23 +135,23 @@
     font-family: inherit;
 }
 
-.btn-edit {
+.account-container .btn-edit {
     flex: 1;
-    background-color: #fa0000;
-    color: #ffffff;
+    background-color: var(--btn-danger-bg);
+    color: var(--btn-danger-text);
 }
 
-.btn-edit:hover {
-    background-color: #cc0000;
+.account-container .btn-edit:hover {
+    background-color: var(--btn-danger-hover);
 }
 
-.btn-save {
+.account-container .btn-save {
     flex: 1;
-    background-color: #4caf50;
-    color: #ffffff;
+    background-color: var(--btn-success-bg);
+    color: var(--btn-success-text);
 }
 
-.btn-cancel {
+.account-container .btn-cancel {
     flex: 1;
     background-color: var(--bg-secondary, #f0f0f0);
     color: var(--text-primary, #333);
@@ -159,8 +159,8 @@
 
 .btn-primary {
     padding: 12px 25px;
-    background-color: #0b1e33;
-    color: #ffffff;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
     border: none;
     border-radius: 10px;
     font-size: 1rem;

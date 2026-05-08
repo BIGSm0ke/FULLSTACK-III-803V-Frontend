@@ -1,0 +1,65 @@
+.admin-crear-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.admin-crear-container h1 {
+    color: var(--text-primary, #0b1e33);
+    font-size: 1.8rem;
+    border-bottom: 3px solid #fa0000;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.admin-crear-form .form-group {
+    margin-bottom: 20px;
+}
+
+.admin-crear-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary, #0b1e33);
+}
+
+.admin-crear-form input,
+.admin-crear-form select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    background-color: var(--card-bg, #fff);
+    color: var(--text-primary, #333);
+    box-sizing: border-box;
+}
+
+.admin-crear-form select {
+    cursor: pointer;
+}
+
+.admin-crear-form .btn-group {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.admin-crear-form .btn-cancel,
+.admin-crear-form .btn-submit {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: inherit;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    border: 1px solid var(--btn-primary-border);
+}
+
+.admin-crear-form .btn-cancel:hover,
+.admin-crear-form .btn-submit:hover {
+    background-color: var(--btn-primary-hover);
+}

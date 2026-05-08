@@ -53,8 +53,8 @@
     display: inline-block;
     margin-top: 12px;
     padding: 10px 20px;
-    background-color: #fa0000;
-    color: #ffffff;
+    background-color: var(--btn-danger-bg);
+    color: var(--btn-danger-text);
     text-decoration: none;
     border-radius: 8px;
     font-weight: 600;
@@ -63,7 +63,7 @@
 }
 
 .btn-join:hover {
-    background-color: #cc0000;
+    background-color: var(--btn-danger-hover);
     transform: translateY(-2px);
     text-decoration: none;
 }

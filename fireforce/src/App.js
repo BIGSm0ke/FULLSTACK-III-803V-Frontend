@@ -10,6 +10,7 @@ import MiCuenta from './components/pages/micuenta';
 import About from './components/pages/about';
 import Unete from './components/pages/unete';
 import AdminUsuarios from './components/pages/admin-usuarios';
+import AdminCrearUsuario from './components/pages/admin-crear-usuario';
 import { ReportProvider } from './context/ReportContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -94,7 +95,6 @@ const Layout = () => {
                             ) : (
                                 <span>{user.name?.charAt(0).toUpperCase()}</span>
                             )}
-                            {isAdmin && <span className="admin-badge">ADMIN</span>}
                         </div>
                         <span className="sidebar-username">{user.name}</span>
                     </div>
@@ -180,10 +180,11 @@ const Layout = () => {
                     <Route path="/monitoreo" element={<AdminRoute><MonitoringPage /></AdminRoute>} />
                     <Route path="/admin-usuarios" element={<AdminRoute><AdminUsuarios /></AdminRoute>} />
                     <Route path="/admin-usuarios/:userId" element={<AdminRoute><AdminUsuarios /></AdminRoute>} />
+                    <Route path="/admin/crear-usuario" element={<AdminRoute><AdminCrearUsuario /></AdminRoute>} />
                     <Route path="/alertas" element={<PrivateRoute><Alertas /></PrivateRoute>} />
                     <Route path="/reportes" element={<Reportes />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/micuenta" element={<MiCuenta />} />
+                    <Route path="/micuenta" element={<PrivateRoute><MiCuenta /></PrivateRoute>} />
                     <Route path="/about" element={<About />} />
                     <Route path="/unete" element={<Unete />} />
                 </Routes>

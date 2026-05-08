@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useReports } from '../../context/ReportContext';
+import { useToast } from '../../context/ToastContext';
+import { userService } from '../../services/userService';
 import '../../styles/micuenta.css';
 
 const MiCuenta = () => {
@@ -16,12 +18,20 @@ const MiCuenta = () => {
         phone: user?.phone || '',
     });
 
+    const { addToast } = useToast();
+
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onloadend = () => {
+            reader.onloadend = async () => {
                 updateUser({ photo: reader.result });
+                try {
+                    await userService.updateProfile({ photo: reader.result });
+                    addToast('Foto actualizada');
+                } catch (e) {
+                    addToast('Error al guardar la foto: ' + e.message, 'error');
+                }
             };
             reader.readAsDataURL(file);
         }
@@ -31,9 +41,15 @@ const MiCuenta = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         updateUser(formData);
         setEditMode(false);
+        try {
+            await userService.updateProfile(formData);
+            addToast('Perfil actualizado');
+        } catch {
+            addToast('Error al guardar el perfil', 'error');
+        }
     };
 
     const handleCancel = () => {

@@ -91,7 +91,7 @@
     padding: 12px 30px;
     background-color: var(--card-bg);
     color: var(--text-primary);
-    border: 2px solid #fa0000;
+    border: 2px solid var(--btn-danger-bg);
     border-radius: 12px;
     font-size: 16px;
     cursor: pointer;
@@ -100,7 +100,7 @@
 }
 
 .try-map-btn:hover {
-    background-color: #fa0000;
+    background-color: var(--btn-danger-bg);
     color: #ffffff;
 }
 
@@ -113,8 +113,8 @@
 
 .btn-alerts-cta {
     padding: 20px 40px;
-    background-color: #fa0000;
-    color: #ffffff;
+    background-color: var(--btn-danger-bg);
+    color: var(--btn-danger-text);
     border: none;
     border-radius: 16px;
     font-size: 1.4rem;
@@ -127,7 +127,7 @@
 }
 
 .btn-alerts-cta:hover {
-    background-color: #cc0000;
+    background-color: var(--btn-danger-hover);
     transform: scale(1.05);
     box-shadow: 0 8px 25px rgba(250, 0, 0, 0.4);
 }

@@ -6,6 +6,7 @@ export const userService = {
     getProfile: () => api.get('/users/profile'),
     updateProfile: (data) => api.put('/users/profile', data),
     getAllUsers: () => api.get('/auth/usuarios'),
+    createUser: (data) => api.post('/auth/register', data),
     logout: () => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('currentUser');

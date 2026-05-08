@@ -58,8 +58,8 @@
 .btn-auth {
     width: 100%;
     padding: 14px;
-    background-color: #0b1e33;
-    color: #ffffff;
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
     border: none;
     border-radius: 12px;
     font-size: 1rem;
@@ -70,7 +70,7 @@
 }
 
 .btn-auth:hover {
-    background-color: #1a3a5c;
+    background-color: var(--btn-primary-hover);
     box-shadow: 0 4px 12px rgba(11, 30, 51, 0.3);
 }
 
@@ -84,7 +84,7 @@
 .btn-link {
     background: none;
     border: none;
-    color: #fa0000;
+    color: var(--btn-danger-bg);
     font-weight: 600;
     cursor: pointer;
     margin-left: 6px;
@@ -95,7 +95,7 @@
 }
 
 .btn-link:hover {
-    color: #cc0000;
+    color: var(--btn-danger-hover);
     text-decoration: underline;
 }
 

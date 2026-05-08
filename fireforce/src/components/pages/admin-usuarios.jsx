@@ -159,7 +159,10 @@ const AdminUsuarios = () => {
 
     return (
         <div className="admin-users-container">
-            <h1>Gestión de Usuarios</h1>
+            <div className="admin-users-header">
+                <h1>Gestión de Usuarios</h1>
+                <button className="btn-crear-usuario" onClick={() => navigate('/admin/crear-usuario')}>Crear Usuario</button>
+            </div>
 
             <div className="admin-users-search">
                 <input
