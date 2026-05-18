@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://44.215.241.158:8080/api';
 
 const apiRequest = async (endpoint, method = 'GET', body = null) => {
     const token = localStorage.getItem('authToken');
