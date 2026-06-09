@@ -1,0 +1,369 @@
+{
+	"info": {
+		"name": "FireForce API",
+		"description": "Colección de endpoints para el sistema FireForce - Evaluación Parcial N°3 Fullstack III",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Auth (Usuarios)",
+			"description": "Autenticación y gestión de usuarios a través del Gateway",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set('token', jsonData.token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"test@fireforce.com\",\n  \"password\": \"password123\",\n  \"role\": \"USER\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set('token', jsonData.token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin@fireforce.com\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "List Users",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/usuarios",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "usuarios"]
+						}
+					}
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/users/profile",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "profile"]
+						}
+					}
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Admin\",\n  \"phone\": \"+56912345678\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/profile",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "profile"]
+						}
+					}
+				},
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "health"]
+						}
+					}
+				},
+				{
+					"name": "Protected Test",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/test/protegido",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "test", "protegido"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Alertas",
+			"description": "Gestión de alertas a través del Gateway",
+			"item": [
+				{
+					"name": "Get Alerts",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/alerts",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "alerts"],
+							"query": [
+								{
+									"key": "severity",
+									"value": "alta",
+									"disabled": true
+								},
+								{
+									"key": "fireType",
+									"value": "FORESTAL",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "2026-06-09",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Alert By ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/alerts/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "alerts", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Reportes",
+			"description": "Gestión de reportes a través del Gateway (ruta /api/reports se reescribe a /api/reportes)",
+			"item": [
+				{
+					"name": "Create Report",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fireType\": \"FORESTAL\",\n  \"severity\": \"alta\",\n  \"visible\": \"humo_denso\",\n  \"address\": \"Av. Central 123\",\n  \"lat\": -33.4489,\n  \"lng\": -70.6693,\n  \"name\": \"Juan Pérez\",\n  \"phone\": \"+56912345678\",\n  \"userId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/reports",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "reports"]
+						}
+					}
+				},
+				{
+					"name": "List Reports",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/reports",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "reports"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Monitoreo",
+			"description": "Monitoreo de incendios activos a través del Gateway",
+			"item": [
+				{
+					"name": "Get Active Fires",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoreo/active",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoreo", "active"]
+						}
+					}
+				},
+				{
+					"name": "Get Fire By ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoreo/fires/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoreo", "fires", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Stats",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoreo/stats",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoreo", "stats"]
+						}
+					}
+				},
+				{
+					"name": "Delete Fire",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoreo/fires/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoreo", "fires", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Direct (sin Gateway)",
+			"description": "Endpoints directos a cada microservicio (para pruebas sin Gateway)",
+			"item": [
+				{
+					"name": "Usuarios - Direct Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"test@fireforce.com\",\n  \"password\": \"password123\",\n  \"role\": \"USER\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8085/auth/register",
+							"host": ["http://localhost:8085"],
+							"path": ["auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Alertas - Direct Get Alerts",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8083/api/alerts",
+							"host": ["http://localhost:8083"],
+							"path": ["api", "alerts"]
+						}
+					}
+				},
+				{
+					"name": "Reportes - Direct Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fireType\": \"FORESTAL\",\n  \"severity\": \"alta\",\n  \"visible\": \"humo_denso\",\n  \"address\": \"Av. Central 123\",\n  \"lat\": -33.4489,\n  \"lng\": -70.6693,\n  \"name\": \"Juan Pérez\",\n  \"phone\": \"+56912345678\",\n  \"userId\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8084/api/reportes",
+							"host": ["http://localhost:8084"],
+							"path": ["api", "reportes"]
+						}
+					}
+				},
+				{
+					"name": "Monitoreo - Direct Active",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8082/api/monitoreo/active",
+							"host": ["http://localhost:8082"],
+							"path": ["api", "monitoreo", "active"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
