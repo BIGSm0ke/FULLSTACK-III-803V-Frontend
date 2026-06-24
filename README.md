@@ -38,4 +38,4 @@ Abre `http://localhost:3000`. La API apunta a `http://44.215.241.158:8080/api` (
 
 ## Capturas
 
-> _(Agregar capturas de pantalla aquí)_
+<img width="1865" height="918" alt="image" src="https://github.com/user-attachments/assets/83f59b8f-eae8-4b79-a255-e2cb9aea5b9b" />
